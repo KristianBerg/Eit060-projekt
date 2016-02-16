@@ -1,5 +1,5 @@
 package Server;
 
-public class User {
-
+public interface User {
+	public Object getRecords();
 }
