@@ -119,6 +119,7 @@ public static void main(String[] args){
 
 @Override
 public void actionPerformed(ActionEvent arg0) {
+	System.out.println(textUsername.getText());
 	client.sendToServer(textUsername.getText());
 }
 }

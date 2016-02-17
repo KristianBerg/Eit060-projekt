@@ -14,16 +14,16 @@ public class ServerConnect {
 	private ObjectInputStream in;
 	private AccessManager am;
 	String dbFile = "records.txt";
-	
-	public static void main(String[] args){
+
+	public static void main(String[] args) {
 		new ServerConnect();
 	}
-	
-	public ServerConnect(){
-		am = new AccessManager(dbFile);
+
+	public ServerConnect() {
+		// am = new AccessManager(dbFile); TEMPORARY
 		port = 5678;
-		
-		//connect to client
+
+		// connect to client
 		try {
 			System.out.println("Waiting for connection...");
 			socket = new ServerSocket(port).accept();
@@ -34,12 +34,12 @@ public class ServerConnect {
 			e.printStackTrace();
 			System.exit(-1);
 		}
-		
-		//listen for client input
-		while(!socket.isClosed()){
+
+		// listen for client input
+		while (!socket.isClosed()) {
 			try {
-				if(in.available() > 0){
-					Object o = in.readObject();
+				Object o = in.readObject();
+				if (o != null) {
 					System.out.println((String) o);
 					handleRequest(o);
 				}
@@ -50,8 +50,8 @@ public class ServerConnect {
 			}
 		}
 	}
-	
-	public void sendToClient(Object o){
+
+	public void sendToClient(Object o) {
 		try {
 			out.writeObject(o);
 		} catch (IOException e) {
@@ -60,6 +60,6 @@ public class ServerConnect {
 	}
 
 	private void handleRequest(Object o) {
-		
+
 	}
 }
