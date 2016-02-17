@@ -3,8 +3,8 @@ package Server;
 import java.util.ArrayList;
 
 public class RecordManager {
-	ArrayList<MedRecord> records; 
-
+	ArrayList<MedRecord> records;
+	
 	public RecordManager(){
 		records = new ArrayList<MedRecord>();
 	}

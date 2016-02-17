@@ -11,5 +11,18 @@ public class MedRecord {
 		nurse = n;
 		patient = p;
 		recordNumber = r;
+		
+	}
+	public String getDoctor(){
+		return doctor;
+	}
+	public String getNurse(){
+		return nurse;
+	}
+	public String getPatient(){
+		return patient;
+	}
+	public String recordNumber(){
+		return recordNumber;
 	}
 }
