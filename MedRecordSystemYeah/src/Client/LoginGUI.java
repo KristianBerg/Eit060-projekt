@@ -57,7 +57,7 @@ public class LoginGUI extends JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         newPanel.add(buttonLogin, constraints);
          
-        newPanel.setPreferredSize(new Dimension(400, 150));
+        newPanel.setPreferredSize(new Dimension(400, 130));
         newPanel.setMaximumSize(newPanel.getPreferredSize()); 
         newPanel.setMinimumSize(newPanel.getPreferredSize());
         
