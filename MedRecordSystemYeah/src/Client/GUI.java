@@ -1,5 +1,6 @@
 package Client;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,7 +16,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 public class GUI extends JFrame {
-	
     private JLabel labelUsername = new JLabel("username: ");
 
 public GUI(){
@@ -23,28 +23,33 @@ public GUI(){
 	
 	JPanel mainPanel = new JPanel(new GridBagLayout());
 	
-	GridBagConstraints constraints = new GridBagConstraints();
+    GridBagConstraints constraints = new GridBagConstraints();
     constraints.anchor = GridBagConstraints.WEST;
-       
-    mainPanel.add(labelUsername, constraints);
-	
+    constraints.insets = new Insets(10, 10, 10, 10);
+    
+    
     String[] names = new String[10];
-	names[0]="Doctor ";
+	names[0]="Krissi Berg";
+	names[1]="Tilla Knut";
+	names[2]="Sikk! Squrl";
     
 	JList list;
     list = new JList(names);
     list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-    list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+    list.setLayoutOrientation(JList.VERTICAL);
     list.setVisibleRowCount(-1);
     JScrollPane listScroller = new JScrollPane(list);
-    listScroller.setPreferredSize(new Dimension(250, 80));
+    listScroller.setPreferredSize(new Dimension(250, 200));
+
     
+    mainPanel.add(listScroller, constraints);
+
+
     
-	mainPanel.setPreferredSize(new Dimension(400, 500));
+	mainPanel.setPreferredSize(new Dimension(300, 500));
 	mainPanel.setMaximumSize(mainPanel.getPreferredSize());
 	mainPanel.setMinimumSize(mainPanel.getPreferredSize());
-   
-	add(list);
+
 	add(mainPanel);
 	pack();
 	setLocationRelativeTo(null);
