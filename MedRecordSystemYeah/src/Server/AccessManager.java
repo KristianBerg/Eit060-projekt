@@ -38,8 +38,17 @@ public class AccessManager {
 	public boolean modifyRecord(int id, int field, String newData){
 		return false;
 	}
-
+	/** 
+	 * @param id indicates which record to delete
+	 * @return true if successful
+	 */
 	public boolean deleteRecord(int id){
+		for(int i = 0; i < records.size(); i++){
+			if(records.get(i).getId() == id){
+				records.remove(i);
+				return true;
+			}
+		}
 		return false;
 	}
 	
@@ -81,7 +90,7 @@ public class AccessManager {
 				}
 			} else if (userOrRecord.equals("r")) {
 				records.add(new MedRecord(scan.next(), scan.next(),
-						scan.next(), scan.next()));
+						scan.next()));
 			} else {
 				System.out.println("First character in each line should be u or r");
 			}

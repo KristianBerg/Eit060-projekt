@@ -1,17 +1,24 @@
 package Server;
 
 public class MedRecord {
-	String doctor;
-	String nurse;
-	String patient;
-	String recordNumber;
+	private String doctor;
+	private String nurse;
+	private String patient;
+	static int recordNumber = 0;
+	private int recordId;
 
-	public MedRecord(String d, String n, String p, String r) {
+	public MedRecord(String d, String n, String p) {
 		doctor = d;
 		nurse = n;
 		patient = p;
-		recordNumber = r;
+		recordId = recordNumber;
+		recordNumber++;
 	}
+	
+	public int getId(){
+		return recordId;
+	}
+	
 	public String getDoctor() {
 		return doctor;
 	}
@@ -23,10 +30,6 @@ public class MedRecord {
 	public String getPatient() {
 		return patient;
 	}
-
-	public String recordNumber() {
-		return recordNumber;
-	}
 	
 	/**
 	 * @return "r " + attributes separated by spaces in same order as they are enetered into the constructor
@@ -35,12 +38,4 @@ public class MedRecord {
 		//TODO
 		return null;
 	}
-
-//	public boolean setNurse(String n) {
-//		if (n != null) {
-//			nurse = n;
-//			return true;
-//		}
-//	return false;
-//	}
 }
