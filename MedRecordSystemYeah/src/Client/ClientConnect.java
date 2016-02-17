@@ -7,11 +7,12 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class ClientConnect {
+	private GUI gui;
 	private Socket socket;
-	int port;
-	ObjectOutputStream out;
-	ObjectInputStream in;
-	String ip = "localhost";
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
+	private String ip;
+	private int port;
 
 	public static void main(String[] args) {
 		new ClientConnect();
@@ -19,6 +20,8 @@ public class ClientConnect {
 
 	public ClientConnect() {
 		port = 5678; // such random, wow
+		ip = "localhost"; //connect to self
+		gui = new GUI();
 		
 		//connect to server
 		try {
@@ -34,7 +37,7 @@ public class ClientConnect {
 		}
 	}
 	
-	public void sendToServer(Object o){
+	public void sendToServer(String o){
 		try {
 			out.writeObject(o);
 		} catch (IOException e) {

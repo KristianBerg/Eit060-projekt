@@ -27,6 +27,14 @@ public class MedRecord {
 	public String recordNumber() {
 		return recordNumber;
 	}
+	
+	/**
+	 * @return "r " + attributes separated by spaces in same order as they are enetered into the constructor
+	 */
+	public String toString() {
+		//TODO
+		return null;
+	}
 
 //	public boolean setNurse(String n) {
 //		if (n != null) {

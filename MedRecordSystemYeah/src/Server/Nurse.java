@@ -1,5 +1,7 @@
 package Server;
 
+import java.util.ArrayList;
+
 public class Nurse implements User {
 	private String division;
 	private String name;
@@ -12,8 +14,14 @@ public class Nurse implements User {
 	
 	
 	
-	public Object getRecords() {
+	public ArrayList<MedRecord> getRecords() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	public String toString() {
 		return null;
 	}
 	

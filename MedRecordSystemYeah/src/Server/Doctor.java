@@ -24,4 +24,8 @@ public class Doctor implements User {
 	public ArrayList<MedRecord> getRecords() {
 		return null;
 	}
+
+	public String toString() {
+		return null;
+	}
 }

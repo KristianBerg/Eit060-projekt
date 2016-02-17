@@ -8,4 +8,8 @@ public class Patient implements User{
 		return null;
 	}
 
+	public String toString() {
+		return null;
+	}
+
 }
