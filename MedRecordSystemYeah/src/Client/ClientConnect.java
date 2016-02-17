@@ -7,7 +7,7 @@ import java.net.UnknownHostException;
 public class ClientConnect {
 	private Socket socket;
 	int port;
-	String ip = "130.235.136.24";
+	String ip = "localhost";
 
 	public static void main(String[] args) {
 		new ClientConnect();
