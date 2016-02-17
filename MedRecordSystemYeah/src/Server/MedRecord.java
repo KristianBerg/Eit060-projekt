@@ -6,23 +6,33 @@ public class MedRecord {
 	String patient;
 	String recordNumber;
 
-	public MedRecord(String d, String n, String p, String r){
+	public MedRecord(String d, String n, String p, String r) {
 		doctor = d;
 		nurse = n;
 		patient = p;
 		recordNumber = r;
-		
 	}
-	public String getDoctor(){
+	public String getDoctor() {
 		return doctor;
 	}
-	public String getNurse(){
+
+	public String getNurse() {
 		return nurse;
 	}
-	public String getPatient(){
+
+	public String getPatient() {
 		return patient;
 	}
-	public String recordNumber(){
+
+	public String recordNumber() {
 		return recordNumber;
 	}
+
+//	public boolean setNurse(String n) {
+//		if (n != null) {
+//			nurse = n;
+//			return true;
+//		}
+//	return false;
+//	}
 }

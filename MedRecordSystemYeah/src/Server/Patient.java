@@ -1,10 +1,11 @@
 package Server;
 
+import java.util.ArrayList;
+
 public class Patient implements User{
 	
-	public Object getRecords() {
+	public ArrayList<MedRecord> getRecords() {
 		return null;
 	}
 
 }
-//hej

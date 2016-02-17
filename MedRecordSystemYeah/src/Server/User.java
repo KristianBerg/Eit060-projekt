@@ -1,5 +1,7 @@
 package Server;
 
+import java.util.ArrayList;
+
 public interface User {
-	public Object getRecords();
+	public ArrayList<MedRecord> getRecords();
 }
