@@ -33,9 +33,19 @@ public class AccessManager {
 	}
 	
 	/**
-	 * @param field decides the attribute to modify
+	 * @param field decides the attribute to modify.
+	 * @value 0 doctor, 1 nurse, 2 patient
 	 */
 	public boolean modifyRecord(int id, int field, String newData){
+		for(int i = 0; i < records.size(); i++){
+			if(records.get(i).getId() == id){
+				switch(field){
+				case 0: records.get(i).setDoctor(newData); return true;
+				case 1:	records.get(i).setNurse(newData); return true;
+				case 2: records.get(i).setPatient(newData); return true;
+				}
+			}
+		}
 		return false;
 	}
 	/** 

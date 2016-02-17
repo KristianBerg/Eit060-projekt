@@ -18,9 +18,8 @@ public class ServerConnect {
 	public static void main(String[] args) {
 		new ServerConnect();
 	}
-
 	public ServerConnect() {
-		// am = new AccessManager(dbFile); TEMPORARY
+		// am = new AccessManager(dbFile); // TEMPORARY
 		port = 5678;
 
 		// connect to client

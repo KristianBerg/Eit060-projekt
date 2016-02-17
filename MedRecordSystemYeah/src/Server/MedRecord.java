@@ -14,11 +14,11 @@ public class MedRecord {
 		recordId = recordNumber;
 		recordNumber++;
 	}
-	
-	public int getId(){
+
+	public int getId() {
 		return recordId;
 	}
-	
+
 	public String getDoctor() {
 		return doctor;
 	}
@@ -30,12 +30,37 @@ public class MedRecord {
 	public String getPatient() {
 		return patient;
 	}
+
+	public boolean setDoctor(String s) {
+		if (s != null) {
+			doctor = s;
+			return true;
+		}
+		return false;
+	}
 	
+	public boolean setNurse(String s) {
+		if (s != null) {
+			nurse = s;
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean setPatient(String s) {
+		if (s != null) {
+			patient = s;
+			return true;
+		}
+		return false;
+	}
+
 	/**
-	 * @return "r " + attributes separated by spaces in same order as they are enetered into the constructor
+	 * @return "r " + attributes separated by spaces in same order as they are
+	 *         enetered into the constructor
 	 */
 	public String toString() {
-		//TODO
+		// TODO
 		return null;
 	}
 }
