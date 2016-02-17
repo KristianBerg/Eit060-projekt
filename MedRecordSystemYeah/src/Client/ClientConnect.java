@@ -14,14 +14,10 @@ public class ClientConnect {
 	private String ip;
 	private int port;
 
-	public static void main(String[] args) {
-		new ClientConnect();
-	}
-
-	public ClientConnect() {
+	public ClientConnect(GUI gui) {
 		port = 5678; // such random, wow
 		ip = "localhost"; //connect to self
-		gui = new GUI();
+		this.gui = gui;
 		
 		//connect to server
 		try {

@@ -18,6 +18,15 @@ public class AccessManager {
 		this.filename = filename;
 	}
 	
+	public boolean login(String username, String pass){
+		//set currentUser attribute here
+		return false;
+	}
+	
+	public void logoff(){
+		currentUser = null;
+	}
+	
 	//TODO All 4 record reading and modifying methods
 	public ArrayList<MedRecord> readAllRecords(){
 		return null;

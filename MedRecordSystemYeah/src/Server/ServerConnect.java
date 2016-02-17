@@ -40,6 +40,7 @@ public class ServerConnect {
 			try {
 				if(in.available() > 0){
 					Object o = in.readObject();
+					System.out.println((String) o);
 					handleRequest(o);
 				}
 			} catch (ClassNotFoundException e) {
@@ -56,10 +57,6 @@ public class ServerConnect {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	private void parseDatabaseInput() {
-		Scanner scan = new Scanner(dbFile);
 	}
 
 	private void handleRequest(Object o) {
