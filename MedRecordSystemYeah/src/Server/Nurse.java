@@ -34,5 +34,13 @@ public class Nurse implements User {
 	public String getDivision(){
 		return division;
 	}
+
+
+
+	@Override
+	public String getPass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

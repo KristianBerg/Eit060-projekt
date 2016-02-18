@@ -20,6 +20,13 @@ public class AccessManager {
 
 	public boolean login(String username, String pass) {
 		// set currentUser attribute here
+		for(User u: users){
+			if(u.getName().equals(username)){
+				if(u.getPass().equals(pass)){
+					currentUser = u;
+				} 
+			}
+		}
 		return false;
 	}
 
@@ -111,11 +118,12 @@ public class AccessManager {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		pw.println(MedRecord.recordNumber);
 		for (User u : users) {
-			pw.print(u.toString());
+			pw.println(u.toString());
 		}
 		for (MedRecord mr : records) {
-			pw.print(mr.toString());
+			pw.println(mr.toString());
 		}
 	}
 

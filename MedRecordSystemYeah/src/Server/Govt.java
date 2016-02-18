@@ -21,4 +21,10 @@ public class Govt implements User{
 	public String getDivision(){
 		return null;
 	}
+
+	@Override
+	public String getPass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

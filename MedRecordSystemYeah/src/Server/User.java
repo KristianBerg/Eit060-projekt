@@ -11,5 +11,6 @@ public interface User {
 	public String toString();
 	public String getName();
 	public String getDivision();
+	public String getPass();
 }
 

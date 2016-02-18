@@ -28,5 +28,11 @@ public class Patient implements User{
 		return division;
 	}
 
+	@Override
+	public String getPass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 
