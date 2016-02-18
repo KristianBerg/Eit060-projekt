@@ -1,5 +1,6 @@
 package Server;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -93,9 +94,23 @@ public class AccessManager {
 			return false;
 		Doctor doctor = null;
 		Nurse nurse = null;
-		Patient patient = new Patient(userData[4]); //TODO what if the patient already exists? also new patients should be added to users
+		Patient patient = new Patient(userData[4]); // TODO what if the patient
+													// already exists? also new
+													// patients should be added
+													// to users
 		for (User u : users) {
-			if (u.getName() == userData[0] && u.getDivision() == userData[1]) { //TODO not going to work, use .equals for String and not ==
+			if (u.getName() == userData[0] && u.getDivision() == userData[1]) { // TODO
+																				// not
+																				// going
+																				// to
+																				// work,
+																				// use
+																				// .equals
+																				// for
+																				// String
+																				// and
+																				// not
+																				// ==
 				doctor = (Doctor) u;
 			}
 			if (u.getName() == userData[2] && u.getDivision() == userData[3]) {
@@ -128,26 +143,58 @@ public class AccessManager {
 		}
 	}
 
+	/**
+	 * Prints all saved users and records to console.
+	 */
+	public void dumpUsersAndRecords() {
+		System.out.println("Users");
+		for (User u : users) {
+			System.out
+					.println("Role: " + u.getClass().getSimpleName()
+							+ " Name: " + u.getName() + " Division: "
+							+ u.getDivision());
+		}
+		for (MedRecord mr : records) {
+			System.out.println("Doctor: " + mr.getDoctor().getName()
+					+ " Nurse: " + mr.getNurse().getName() + " Patient: "
+					+ mr.getPatient().getName() + " Division: "
+					+ mr.getDivision());
+		}
+	}
+
 	private void readFile(String filename) {
-		Scanner scan = new Scanner(filename);
+		Scanner scan = null;
+		try {
+			scan = new Scanner(new File(filename));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		scan.nextLine(); // TODO assumes first line of input
+							// is comment, not pretty but
+							// works
 		MedRecord.setRecordNumber(scan.nextInt());
 		scan.nextLine();
+		int currentRow = 3;
 		while (scan.hasNext()) {
-			String userOrRecord = scan.next();
-			if (userOrRecord.equals("u")) {
+			char userOrRecord = scan.next().charAt(0);
+			if (userOrRecord == 'u') { // read user
 				switch (scan.next().charAt(0)) {
 				case 'd':
 					users.add(new Doctor(scan.next(), scan.next()));
+					break;
 				case 'n':
 					users.add(new Nurse(scan.next(), scan.next()));
+					break;
 				case 'p':
 					users.add(new Patient(scan.next()));
+					break;
 				case 'g':
 					users.add(new Govt(scan.next()));
+					break;
 				default:
 					System.out.println("not a valid user character");
 				}
-			} else if (userOrRecord.equals("r")) {
+			} else if (userOrRecord == 'r') { // read record
 				String doctorName = scan.next();
 				String nurseName = scan.next();
 				String patientName = scan.next();
@@ -165,13 +212,17 @@ public class AccessManager {
 						p = (Patient) u;
 					}
 				}
+				if (d == null || n == null || p == null) {
+					System.out.println("part of record set to null at row: " + currentRow);
+				}
 				records.add(new MedRecord(d, n, p, scan.next()));
-			} else if (userOrRecord.equals("#")) { // for comments
-				scan.nextLine();
+			} else if (userOrRecord == 'c') { // for comments
+				//do nothing here
 			} else {
 				System.out
-						.println("First character in each line should be #, u or r");
+						.println("First character in each line should be c, u or r");
 			}
+			currentRow++;
 			scan.nextLine();
 		}
 		scan.close();

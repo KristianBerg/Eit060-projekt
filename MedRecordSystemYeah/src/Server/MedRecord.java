@@ -33,14 +33,18 @@ public class MedRecord {
 		return patient;
 	}
 
+	public String getDivision() {
+		return division;
+	}
+
 	public boolean setDoctor(Doctor newData) {
 		if (newData != null) {
-			doctor =  newData;
+			doctor = newData;
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean setNurse(Nurse s) {
 		if (s != null) {
 			nurse = s;
@@ -48,7 +52,7 @@ public class MedRecord {
 		}
 		return false;
 	}
-	
+
 	public boolean setPatient(Patient s) {
 		if (s != null) {
 			patient = s;
@@ -57,9 +61,10 @@ public class MedRecord {
 		return false;
 	}
 
-	public static void setRecordNumber(int i){
+	public static void setRecordNumber(int i) {
 		recordNumber = i;
 	}
+
 	/**
 	 * @return "r " + attributes separated by spaces in same order as they are
 	 *         enetered into the constructor

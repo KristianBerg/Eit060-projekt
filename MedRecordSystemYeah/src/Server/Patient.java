@@ -23,7 +23,7 @@ public class Patient implements User{
 	}
 	
 	public String getDivision(){
-		return null;
+		return "-";
 	}
 
 	@Override
