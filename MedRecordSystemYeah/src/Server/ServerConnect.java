@@ -19,9 +19,9 @@ public class ServerConnect {
 		new ServerConnect();
 	}
 	public ServerConnect() {
-		// am = new AccessManager(dbFile); // TEMPORARY
+		am = new AccessManager(dbFile); // TEMPORARY
 		port = 5678;
-
+		
 		// connect to client
 		try {
 			System.out.println("Waiting for connection...");

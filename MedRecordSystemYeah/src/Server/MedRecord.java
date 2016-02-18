@@ -7,10 +7,10 @@ public class MedRecord {
 	static int recordNumber = 0;
 	private int recordId;
 
-	public MedRecord(User d, User n, User p) {
-		doctor = (Doctor)d;
-		nurse = (Nurse)n;
-		patient = (Patient)p;
+	public MedRecord(Doctor d, Nurse n, Patient p) {
+		doctor = d;
+		nurse = n;
+		patient = p;
 		recordId = recordNumber;
 		recordNumber++;
 	}

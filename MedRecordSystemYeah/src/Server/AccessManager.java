@@ -17,66 +17,104 @@ public class AccessManager {
 		readFile(filename);
 		this.filename = filename;
 	}
-	
-	public boolean login(String username, String pass){
-		//set currentUser attribute here
+
+	public boolean login(String username, String pass) {
+		// set currentUser attribute here
 		return false;
 	}
-	
-	public void logoff(){
+
+	public void logoff() {
 		currentUser = null;
 	}
-	
-	//TODO All 4 record reading and modifying methods
-	public ArrayList<MedRecord> readAllRecords(){
+
+	// TODO All 4 record reading and modifying methods
+	public ArrayList<MedRecord> readAllRecords() {
 		return null;
 	}
-	
+
 	/**
-	 * @param field decides the attribute to modify.
+	 * @param field
+	 *            decides the attribute to modify.
 	 * @value 0 doctor, 1 nurse, 2 patient
 	 */
-	public boolean modifyRecord(int id, int field, Object newData){
-		for(int i = 0; i < records.size(); i++){
-			if(records.get(i).getId() == id){
-				switch(field){
-				case 0: records.get(i).setDoctor((Doctor) newData); return true;
-				case 1:	records.get(i).setNurse((Nurse)newData); return true;
-				case 2: records.get(i).setPatient((Patient)newData); return true;
+	public boolean modifyRecord(int id, int field, Object newData) {
+		for (int i = 0; i < records.size(); i++) {
+			if (records.get(i).getId() == id) {
+				switch (field) {
+				case 0:
+					records.get(i).setDoctor((Doctor) newData);
+					return true;
+				case 1:
+					records.get(i).setNurse((Nurse) newData);
+					return true;
+				case 2:
+					records.get(i).setPatient((Patient) newData);
+					return true;
 				}
 			}
 		}
 		return false;
 	}
-	/** 
-	 * @param id indicates which record to delete
+
+	/**
+	 * @param id
+	 *            indicates which record to delete
 	 * @return true if successful
 	 */
-	public boolean deleteRecord(int id){
-		for(int i = 0; i < records.size(); i++){
-			if(records.get(i).getId() == id){
+	public boolean deleteRecord(int id) {
+		for (int i = 0; i < records.size(); i++) {
+			if (records.get(i).getId() == id) {
 				records.remove(i);
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	public boolean createRecord(){
+
+	/**
+	 * Ensures that the doctor and nurse are registered as users. If patient is
+	 * registered, adds record with corresponding patient. If patient does not
+	 * exist, creates new patient.
+	 * 
+	 * @param String
+	 *            array in the format [doctorName, doctorDivision, nurseName,
+	 *            nurseDivision, patientName, patientDivision]
+	 */
+	public boolean createRecord(String[] userData) {
+		if (userData.length != 6)
+			return false;
+		Doctor doctor = null;
+		Nurse nurse = null;
+		Patient patient = new Patient(userData[4], userData[5]);
+		for (User u : users) {
+			if (u.getName() == userData[0] && u.getDivision() == userData[1]) {
+				doctor = (Doctor) u;
+			}
+			if (u.getName() == userData[2] && u.getDivision() == userData[3]) {
+				nurse = (Nurse) u;
+			}
+			if (u.getName() == userData[4] && u.getDivision() == userData[5]) {
+				patient = (Patient) u;
+			}
+		}
+		if (doctor != null && nurse != null) {
+			records.add(new MedRecord(doctor, nurse, patient));
+		}
+		;
 		return false;
 	}
-	
-	public void saveToFile(){
+
+	public void saveToFile() {
 		PrintWriter pw = null;
 		try {
 			pw = new PrintWriter(filename);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		for(User u: users){
+		for (User u : users) {
 			pw.print(u.toString());
 		}
-		for(MedRecord mr: records){
+		for (MedRecord mr : records) {
 			pw.print(mr.toString());
 		}
 	}
@@ -99,32 +137,16 @@ public class AccessManager {
 					System.out.println("not a valid user character");
 				}
 			} else if (userOrRecord.equals("r")) {
-				/* Saves user data in a String array in the format [doctorName, doctorDivision, nurseName, nurseDivision, patientName, patientDivision]
-				* Ensures that the doctor and nurse are registered as users. If patient is registered, adds record with corresponding patient. If 
-				* patient does not exist, creates new patient. */
-				String[] userData = new String[6];
-				Doctor doctor = null;
-				Nurse nurse = null;
-				Patient patient = new Patient(userData[4], userData[5]);
-				for(User u : users){
-					if(u.getName() == userData[0] && u.getDivision() == userData[1]){
-						doctor = (Doctor)u;
-					}
-					if(u.getName() == userData[2] && u.getDivision() == userData[3]){
-						nurse = (Nurse)u;
-					}
-					if(u.getName() == userData[4] && u.getDivision() == userData [5]){
-						patient = (Patient)u;
-					}
-				}
-				if(doctor != null && nurse != null){
-					records.add(new MedRecord(doctor, nurse, patient));
-				}
+				records.add(new MedRecord(new Doctor(scan.next(), scan.next()),
+						new Nurse(scan.next(), scan.next()), new Patient(scan
+								.next(), scan.next())));
 			} else {
-				System.out.println("First character in each line should be u or r");
+				System.out
+						.println("First character in each line should be u or r");
 			}
 			scan.nextLine();
 		}
 		scan.close();
 	}
+
 }
