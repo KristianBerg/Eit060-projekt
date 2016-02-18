@@ -36,13 +36,13 @@ public class AccessManager {
 	 * @param field decides the attribute to modify.
 	 * @value 0 doctor, 1 nurse, 2 patient
 	 */
-	public boolean modifyRecord(int id, int field, String newData){
+	public boolean modifyRecord(int id, int field, Object newData){
 		for(int i = 0; i < records.size(); i++){
 			if(records.get(i).getId() == id){
 				switch(field){
-				case 0: records.get(i).setDoctor(newData); return true;
-				case 1:	records.get(i).setNurse(newData); return true;
-				case 2: records.get(i).setPatient(newData); return true;
+				case 0: records.get(i).setDoctor((Doctor) newData); return true;
+				case 1:	records.get(i).setNurse((Nurse)newData); return true;
+				case 2: records.get(i).setPatient((Patient)newData); return true;
 				}
 			}
 		}
@@ -92,15 +92,34 @@ public class AccessManager {
 				case 'n':
 					users.add(new Nurse(scan.next(), scan.next()));
 				case 'p':
-					users.add(new Patient());
+					users.add(new Patient(scan.next(), scan.next()));
 				case 'g':
 					users.add(new Govt());
 				default:
 					System.out.println("not a valid user character");
 				}
 			} else if (userOrRecord.equals("r")) {
-				records.add(new MedRecord(scan.next(), scan.next(),
-						scan.next()));
+				/* Saves user data in a String array in the format [doctorName, doctorDivision, nurseName, nurseDivision, patientName, patientDivision]
+				* Ensures that the doctor and nurse are registered as users. If patient is registered, adds record with corresponding patient. If 
+				* patient does not exist, creates new patient. */
+				String[] userData = new String[6];
+				Doctor doctor = null;
+				Nurse nurse = null;
+				Patient patient = new Patient(userData[4], userData[5]);
+				for(User u : users){
+					if(u.getName() == userData[0] && u.getDivision() == userData[1]){
+						doctor = (Doctor)u;
+					}
+					if(u.getName() == userData[2] && u.getDivision() == userData[3]){
+						nurse = (Nurse)u;
+					}
+					if(u.getName() == userData[4] && u.getDivision() == userData [5]){
+						patient = (Patient)u;
+					}
+				}
+				if(doctor != null && nurse != null){
+					records.add(new MedRecord(doctor, nurse, patient));
+				}
 			} else {
 				System.out.println("First character in each line should be u or r");
 			}

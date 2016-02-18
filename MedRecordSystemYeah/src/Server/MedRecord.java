@@ -1,16 +1,16 @@
 package Server;
 
 public class MedRecord {
-	private String doctor;
-	private String nurse;
-	private String patient;
+	private Doctor doctor;
+	private Nurse nurse;
+	private Patient patient;
 	static int recordNumber = 0;
 	private int recordId;
 
-	public MedRecord(String d, String n, String p) {
-		doctor = d;
-		nurse = n;
-		patient = p;
+	public MedRecord(User d, User n, User p) {
+		doctor = (Doctor)d;
+		nurse = (Nurse)n;
+		patient = (Patient)p;
 		recordId = recordNumber;
 		recordNumber++;
 	}
@@ -19,27 +19,27 @@ public class MedRecord {
 		return recordId;
 	}
 
-	public String getDoctor() {
+	public Doctor getDoctor() {
 		return doctor;
 	}
 
-	public String getNurse() {
+	public Nurse getNurse() {
 		return nurse;
 	}
 
-	public String getPatient() {
+	public Patient getPatient() {
 		return patient;
 	}
 
-	public boolean setDoctor(String s) {
-		if (s != null) {
-			doctor = s;
+	public boolean setDoctor(Doctor newData) {
+		if (newData != null) {
+			doctor =  newData;
 			return true;
 		}
 		return false;
 	}
 	
-	public boolean setNurse(String s) {
+	public boolean setNurse(Nurse s) {
 		if (s != null) {
 			nurse = s;
 			return true;
@@ -47,7 +47,7 @@ public class MedRecord {
 		return false;
 	}
 	
-	public boolean setPatient(String s) {
+	public boolean setPatient(Patient s) {
 		if (s != null) {
 			patient = s;
 			return true;

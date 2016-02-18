@@ -28,4 +28,12 @@ public class Doctor implements User {
 	public String toString() {
 		return null;
 	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+	public String getDivision(){
+		return division;
+	}
 }

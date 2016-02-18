@@ -9,4 +9,7 @@ public interface User {
 	 * + attributes separated by spaces in same order as they are entered into the constructor
 	 */
 	public String toString();
+	public String getName();
+	public String getDivision();
 }
+
