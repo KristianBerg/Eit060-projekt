@@ -19,12 +19,13 @@ public class AccessManager {
 	}
 
 	public boolean login(String username, String pass) {
-		// set currentUser attribute here
-		for(User u: users){
-			if(u.getName().equals(username)){
-				if(u.getPass().equals(pass)){
+		for (User u : users) {
+			if (u.getName().equals(username)) {
+				if (u.getPass().equals(pass)) {
 					currentUser = u;
-				} 
+					return true;
+				}
+				break;
 			}
 		}
 		return false;
@@ -85,16 +86,16 @@ public class AccessManager {
 	 * 
 	 * @param String
 	 *            array in the format [doctorName, doctorDivision, nurseName,
-	 *            nurseDivision, patientName, patientDivision]
+	 *            nurseDivision, patientName, division]
 	 */
 	public boolean createRecord(String[] userData) {
 		if (userData.length != 6)
 			return false;
 		Doctor doctor = null;
 		Nurse nurse = null;
-		Patient patient = new Patient(userData[4], userData[5]);
+		Patient patient = new Patient(userData[4]); //TODO what if the patient already exists? also new patients should be added to users
 		for (User u : users) {
-			if (u.getName() == userData[0] && u.getDivision() == userData[1]) {
+			if (u.getName() == userData[0] && u.getDivision() == userData[1]) { //TODO not going to work, use .equals for String and not ==
 				doctor = (Doctor) u;
 			}
 			if (u.getName() == userData[2] && u.getDivision() == userData[3]) {
@@ -105,7 +106,7 @@ public class AccessManager {
 			}
 		}
 		if (doctor != null && nurse != null) {
-			records.add(new MedRecord(doctor, nurse, patient));
+			records.add(new MedRecord(doctor, nurse, patient, userData[5]));
 		}
 		;
 		return false;
@@ -129,6 +130,8 @@ public class AccessManager {
 
 	private void readFile(String filename) {
 		Scanner scan = new Scanner(filename);
+		MedRecord.setRecordNumber(scan.nextInt());
+		scan.nextLine();
 		while (scan.hasNext()) {
 			String userOrRecord = scan.next();
 			if (userOrRecord.equals("u")) {
@@ -138,23 +141,39 @@ public class AccessManager {
 				case 'n':
 					users.add(new Nurse(scan.next(), scan.next()));
 				case 'p':
-					users.add(new Patient(scan.next(), scan.next()));
+					users.add(new Patient(scan.next()));
 				case 'g':
-					users.add(new Govt());
+					users.add(new Govt(scan.next()));
 				default:
 					System.out.println("not a valid user character");
 				}
 			} else if (userOrRecord.equals("r")) {
-				records.add(new MedRecord(new Doctor(scan.next(), scan.next()),
-						new Nurse(scan.next(), scan.next()), new Patient(scan
-								.next(), scan.next())));
+				String doctorName = scan.next();
+				String nurseName = scan.next();
+				String patientName = scan.next();
+				Doctor d = null;
+				Nurse n = null;
+				Patient p = null;
+				for (User u : users) {
+					if (u.getName().equals(doctorName) && u instanceof Doctor) {
+						d = (Doctor) u;
+					} else if (u.getName().equals(nurseName)
+							&& u instanceof Nurse) {
+						n = (Nurse) u;
+					} else if (u.getName().equals(patientName)
+							&& u instanceof Patient) {
+						p = (Patient) u;
+					}
+				}
+				records.add(new MedRecord(d, n, p, scan.next()));
+			} else if (userOrRecord.equals("#")) { // for comments
+				scan.nextLine();
 			} else {
 				System.out
-						.println("First character in each line should be u or r");
+						.println("First character in each line should be #, u or r");
 			}
 			scan.nextLine();
 		}
 		scan.close();
 	}
-
 }

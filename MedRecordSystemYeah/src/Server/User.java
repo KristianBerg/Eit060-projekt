@@ -12,5 +12,6 @@ public interface User {
 	public String getName();
 	public String getDivision();
 	public String getPass();
+	public boolean hasAccess(String accessType, MedRecord mr);
 }
 

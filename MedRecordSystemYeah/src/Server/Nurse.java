@@ -42,5 +42,13 @@ public class Nurse implements User {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+	@Override
+	public boolean hasAccess(String accessType, MedRecord mr) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
