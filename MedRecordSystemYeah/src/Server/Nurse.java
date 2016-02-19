@@ -5,6 +5,9 @@ import java.util.ArrayList;
 public class Nurse implements User {
 	private String division;
 	private String name;
+	private ArrayList<MedRecord> medRecords;
+	private String password;
+	
 
 
 	public Nurse(String name, String division){
@@ -15,14 +18,13 @@ public class Nurse implements User {
 	
 	
 	public ArrayList<MedRecord> getRecords() {
-		// TODO Auto-generated method stub
-		return null;
+		return medRecords;
 	}
 
 
 
 	public String toString() {
-		return null;
+		return "u n " + this.name +" " + this.division;
 	}
 
 
@@ -40,15 +42,22 @@ public class Nurse implements User {
 	@Override
 	public String getPass() {
 		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
 
 
 
 	@Override
 	public boolean hasAccess(String accessType, MedRecord mr) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		if(accessType.equals("write")){
+			if(mr.getNurse()==this){
+				return true;
+			}}
+			if(accessType=="read"){
+				if(this.equals("d")){
+					return true;
+				}}
+			return false;
+		}
 	
 }

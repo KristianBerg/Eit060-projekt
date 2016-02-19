@@ -6,7 +6,8 @@ public class Doctor implements User {
 	private String division;
 	private String name;
 	private ArrayList<MedRecord> medRecords;
-
+	private String password;
+	
 	public Doctor(String name, String division) {
 		this.division = division;
 		this.name = name;
@@ -22,11 +23,12 @@ public class Doctor implements User {
 
 	@Override
 	public ArrayList<MedRecord> getRecords() {
-		return null;
+		return medRecords;
 	}
 
 	public String toString() {
-		return null;
+		return "u d " + this.name +" " + this.division;
+				 
 	}
 
 	@Override
@@ -40,12 +42,19 @@ public class Doctor implements User {
 	@Override
 	public String getPass() {
 		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
 
 	@Override
 	public boolean hasAccess(String accessType, MedRecord mr) {
-		// TODO Auto-generated method stub
+		if(accessType.equals("write")){
+		if(mr.getDoctor()==this){
+			return true;
+		}}
+		if(accessType=="read"){
+			if(this.equals("d")){
+				return true;
+			}}
 		return false;
 	}
 }
