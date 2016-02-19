@@ -135,17 +135,20 @@ public class AccessManager {
 	public void saveToFile() {
 		PrintWriter pw = null;
 		try {
-			pw = new PrintWriter(new File(filename));
+			pw = new PrintWriter(filename);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		pw.println(MedRecord.recordNumber);
 		for (User u : users) {
+			System.out.println(u.toString());
 			pw.println(u.toString());
 		}
 		for (MedRecord mr : records) {
+			System.out.println(mr.toString());
 			pw.println(mr.toString());
 		}
+		pw.close();
 	}
 
 	/**
@@ -177,7 +180,7 @@ public class AccessManager {
 		scan.nextLine(); // TODO assumes first line of input
 							// is comment, not pretty but
 							// works
-		MedRecord.setRecordNumber(scan.nextInt());
+		MedRecord.setRecordNumber(scan.nextInt()); //TODO this becomes incorrect
 		scan.nextLine();
 		int currentRow = 3;
 		while (scan.hasNext()) {
