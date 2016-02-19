@@ -60,6 +60,14 @@ public class MedRecord {
 		}
 		return false;
 	}
+	
+	public boolean setDivision(String div){
+		if(div != null){
+			division = div;
+			return false;
+		}
+		return false;
+	}
 
 	public static void setRecordNumber(int i) {
 		recordNumber = i;

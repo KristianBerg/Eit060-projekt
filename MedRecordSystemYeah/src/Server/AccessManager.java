@@ -44,21 +44,26 @@ public class AccessManager {
 	/**
 	 * @param field
 	 *            decides the attribute to modify.
-	 * @value 0 doctor, 1 nurse, 2 patient
+	 * @value 0 doctor, 1 nurse, 2 patient 3 division
 	 */
-	public boolean modifyRecord(int id, int field, Object newData) {
+	public boolean modifyRecord(int id, int field, String name) {
 		for (int i = 0; i < records.size(); i++) {
 			if (records.get(i).getId() == id) {
 				switch (field) {
 				case 0:
-					records.get(i).setDoctor((Doctor) newData);
+					records.get(i).setDoctor((Doctor) findByName(name));
 					return true;
 				case 1:
-					records.get(i).setNurse((Nurse) newData);
+					records.get(i).setNurse((Nurse) findByName(name));
 					return true;
 				case 2:
-					records.get(i).setPatient((Patient) newData);
+					records.get(i).setPatient((Patient) findByName(name));
 					return true;
+				case 3:
+					records.get(i).setDivision(name);
+					return true;
+				default:
+					return false;
 				}
 			}
 		}
@@ -130,7 +135,7 @@ public class AccessManager {
 	public void saveToFile() {
 		PrintWriter pw = null;
 		try {
-			pw = new PrintWriter(filename);
+			pw = new PrintWriter(new File(filename));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -198,10 +203,10 @@ public class AccessManager {
 				String doctorName = scan.next();
 				String nurseName = scan.next();
 				String patientName = scan.next();
-				Doctor d = null;
-				Nurse n = null;
-				Patient p = null;
-				for (User u : users) {
+				Doctor d = (Doctor) findByName(doctorName);
+				Nurse n = (Nurse) findByName(nurseName);
+				Patient p = (Patient) findByName(patientName);
+				/*for (User u : users) {
 					if (u.getName().equals(doctorName) && u instanceof Doctor) {
 						d = (Doctor) u;
 					} else if (u.getName().equals(nurseName)
@@ -211,7 +216,7 @@ public class AccessManager {
 							&& u instanceof Patient) {
 						p = (Patient) u;
 					}
-				}
+				}*/
 				if (d == null || n == null || p == null) {
 					System.out.println("part of record set to null at row: " + currentRow);
 				}
@@ -226,5 +231,20 @@ public class AccessManager {
 			scan.nextLine();
 		}
 		scan.close();
+	}
+	
+	/**
+	 * finds user matching class type of user argument and name and puts it into user argument
+	 * @param name
+	 * @param user
+	 * @return
+	 */
+	private User findByName(String name){
+		for(User u: users){
+			if(u.getName().equals(name)){
+				return u;
+			}
+		}
+		return null;
 	}
 }
