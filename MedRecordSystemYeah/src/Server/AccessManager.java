@@ -139,11 +139,14 @@ public class AccessManager {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		pw.println("c number of records");
 		pw.println(MedRecord.recordNumber);
+		pw.println("c users");
 		for (User u : users) {
 			System.out.println(u.toString());
 			pw.println(u.toString());
 		}
+		pw.println("c records");
 		for (MedRecord mr : records) {
 			System.out.println(mr.toString());
 			pw.println(mr.toString());
@@ -231,6 +234,7 @@ public class AccessManager {
 						.println("First character in each line should be c, u or r");
 			}
 			currentRow++;
+			//System.out.println(currentRow);
 			scan.nextLine();
 		}
 		scan.close();

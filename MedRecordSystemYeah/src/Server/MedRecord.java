@@ -75,10 +75,9 @@ public class MedRecord {
 
 	/**
 	 * @return "r " + attributes separated by spaces in same order as they are
-	 *         enetered into the constructor
+	 *         entered into the constructor
 	 */
 	public String toString() {
-		// TODO
-		return null;
+		return "r " + doctor.getName() + " " + nurse.getName() + " " + patient.getName() + " " + division;
 	}
 }

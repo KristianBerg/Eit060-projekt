@@ -15,7 +15,7 @@ public class Patient implements User{
 	}
 
 	public String toString() {
-		return null;
+		return "u p " + name;
 	}
 	
 	public String getName() {
