@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Govt implements User{
 	private String name;
+	private String password;
 
 	public Govt(String name){
 		this.name = name;
@@ -15,7 +16,7 @@ public class Govt implements User{
 	}
 
 	public String toString() {
-		return null;
+		return "u g " + name;
 	}
 
 	@Override
@@ -28,13 +29,14 @@ public class Govt implements User{
 
 	@Override
 	public String getPass() {
-		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
 
 	@Override
 	public boolean hasAccess(String accessType, MedRecord mr) {
-		// TODO Auto-generated method stub
+		if(accessType.equals("read") || accessType.equals("delete")){
+			return true;
+		}
 		return false;
 	}
 }
