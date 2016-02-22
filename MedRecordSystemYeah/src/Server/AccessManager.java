@@ -150,19 +150,21 @@ public class AccessManager {
 	 * Prints all saved users and records to console.
 	 */
 	public void dumpUsersAndRecords() {
-		System.out.println("Users");
+		System.out.println("Users\n");
 		for (User u : users) {
 			System.out
 					.println("Role: " + u.getClass().getSimpleName()
 							+ " Name: " + u.getName() + " Division: "
 							+ u.getDivision());
 		}
+		System.out.println("\nRecords\n");
 		for (MedRecord mr : records) {
 			System.out.println("Doctor: " + mr.getDoctor().getName()
 					+ " Nurse: " + mr.getNurse().getName() + " Patient: "
 					+ mr.getPatient().getName() + " Division: "
 					+ mr.getDivision());
 		}
+		System.out.println("\n)");
 	}
 
 	private void readFile(String filename) {
