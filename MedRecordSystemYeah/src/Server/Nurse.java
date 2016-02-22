@@ -12,7 +12,7 @@ public class Nurse implements User {
 	}
 
 	public String toString() {
-		return "u n " + this.name + " " + this.division;
+		return "u n " + this.name + " " + this.division + " " + password;
 	}
 
 	@Override

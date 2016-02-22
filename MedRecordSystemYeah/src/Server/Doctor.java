@@ -14,7 +14,7 @@ public class Doctor implements User {
 	}
 
 	public String toString() {
-		return "u d " + this.name + " " + this.division;
+		return "u d " + this.name + " " + this.division + " " + password;
 
 	}
 

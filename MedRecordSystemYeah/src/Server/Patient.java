@@ -12,7 +12,7 @@ public class Patient implements User{
 	}
 
 	public String toString() {
-		return "u p " + name;
+		return "u p " + name + " " + password;
 	}
 	
 	public String getName() {

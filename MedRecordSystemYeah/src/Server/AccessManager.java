@@ -164,7 +164,7 @@ public class AccessManager {
 					+ mr.getPatient().getName() + " Division: "
 					+ mr.getDivision());
 		}
-		System.out.println("\n)");
+		System.out.println("\n");
 	}
 
 	private void readFile(String filename) {

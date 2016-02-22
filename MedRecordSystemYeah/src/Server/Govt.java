@@ -10,7 +10,7 @@ public class Govt implements User {
 	}
 
 	public String toString() {
-		return "u g " + name;
+		return "u g " + name + " " + password;
 	}
 
 	@Override
