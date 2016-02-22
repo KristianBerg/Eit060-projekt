@@ -207,6 +207,8 @@ public class AccessManager {
 				case 'g':
 					users.add(new Govt(scan.next(), scan.next()));
 					break;
+				case 's':
+					users.add(new SuperDuperUser(scan.next()));
 				default:
 					System.out.println("not a valid user character");
 				}

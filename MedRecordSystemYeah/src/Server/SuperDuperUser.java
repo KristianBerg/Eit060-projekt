@@ -22,5 +22,8 @@ public class SuperDuperUser implements User{
 	public boolean hasAccess(String accessType, MedRecord mr) {
 		return true;
 	}
-
+	
+	public String toString(){
+		return "u s " + name;
+	}
 }
