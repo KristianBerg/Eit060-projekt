@@ -36,7 +36,7 @@ public class Doctor implements User {
 	@Override
 	public boolean hasAccess(String accessType, MedRecord mr) {
 		if (accessType.equals("write")) {
-			if (mr.getDoctor().getName().equals(name)) {
+			if (mr.getDoctor() == this) {
 				return true;
 			}
 		}

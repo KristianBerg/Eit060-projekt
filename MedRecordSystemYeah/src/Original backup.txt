@@ -10,7 +10,7 @@ u p ann pA92we
 u p jeb pA93we
 u p isa pA94we
 u g soc pA95we
-u s fruktegott Oij97a
+u s fruktegott bananer
 c records
 r arn per ann barn 
 r gun eva jeb rtg 

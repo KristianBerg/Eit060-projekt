@@ -18,12 +18,17 @@ public class AccessManager {
 		readFile(filename);
 		this.filename = filename;
 	}
+	
+	public ArrayList<User> getUsers(){
+		return users;
+	}
 
 	public boolean login(String username, String pass) {
 		for (User u : users) {
 			if (u.getName().equals(username)) {
 				if (u.getPass().equals(pass)) {
 					currentUser = u;
+					System.out.println(currentUser);
 					return true;
 				}
 				break;
@@ -44,6 +49,7 @@ public class AccessManager {
 				s += r.idString() + "\n";
 			}
 		}
+		s+="end";
 		return s;
 	}
 
