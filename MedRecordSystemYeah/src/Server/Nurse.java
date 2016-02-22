@@ -5,7 +5,7 @@ public class Nurse implements User {
 	private String name;
 	private String password;
 
-	public Nurse(String name, String division, String passowrd) {
+	public Nurse(String name, String division, String password) {
 		this.name = name;
 		this.division = division;
 		this.password = password;

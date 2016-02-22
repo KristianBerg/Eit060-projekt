@@ -16,11 +16,14 @@ public class SuperDuperUser implements User{
 	}
 
 	public String getPass() {
-		return "bananer";
+		return "Oij97a";
 	}
 
 	public boolean hasAccess(String accessType, MedRecord mr) {
 		return true;
 	}
-
+	
+	public String toString(){
+		return "u s " + name;
+	}
 }

@@ -18,6 +18,10 @@ public class AccessManager {
 		readFile(filename);
 		this.filename = filename;
 	}
+	
+	public ArrayList<User> getUsers(){
+		return users;
+	}
 
 	public boolean login(String username, String pass) {
 		for (User u : users) {
@@ -38,13 +42,10 @@ public class AccessManager {
 	}
 
 	// TODO All 4 record reading and modifying methods
-	public String readAllRecords(User u) {
+	public String readAllRecords() {
 		String s = "";
-		if (u == null){
-			u = currentUser;
-		}
 		for (MedRecord r : records){
-			if (u.hasAccess("read", r)){
+			if (currentUser.hasAccess("read", r)){
 				s += r.idString() + "\n";
 			}
 		}
@@ -77,6 +78,8 @@ public class AccessManager {
 						return false;
 					}
 
+				}
+				else {
 				}
 			}
 		}
@@ -207,6 +210,9 @@ public class AccessManager {
 					break;
 				case 'g':
 					users.add(new Govt(scan.next(), scan.next()));
+					break;
+				case 's':
+					users.add(new SuperDuperUser(scan.next()));
 					break;
 				default:
 					System.out.println("not a valid user character");
