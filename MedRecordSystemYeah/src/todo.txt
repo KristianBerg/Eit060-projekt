@@ -1,17 +1,8 @@
-Pröva genom FileIO att modify, read, create fungerar
-Implementera lösenord för klasser, inkludera detta i FileIO och tilldela sådana i textfilen
-Implementera protokoll för hur kommandon från användaren ska användas för att anropa metoder i AccMngr
-Lista ut hur exempelkoden från projekt 1 ska användas för att få ut en ObjectOut(In)putStream
-Skapa Keystores för ett par användare, åtminstone en per användartyp
-Lista ut hur Keystore input och lösenordet till detta ska implementeras
-Refaktorisera konstruktor för MedRecord till att ta User input istället för Doctor, Nurse och Patient
+Prï¿½va genom FileIO att modify, read, create fungerar
+Implementera lï¿½senord fï¿½r klasser, inkludera detta i FileIO och tilldela sï¿½dana i textfilen
+Implementera protokoll fï¿½r hur kommandon frï¿½n anvï¿½ndaren ska anvï¿½ndas fï¿½r att anropa metoder i AccMngr
+Lista ut hur exempelkoden frï¿½n projekt 1 ska anvï¿½ndas fï¿½r att fï¿½ ut en ObjectOut(In)putStream
+Lista ut hur Keystore input och lï¿½senordet till detta ska implementeras
+Refaktorisera konstruktor fï¿½r MedRecord till att ta User input istï¿½llet fï¿½r Doctor, Nurse och Patient
 
-Keystores och Truststores som behövs:
-servertrust
-serverkey
-clienttrust
-doctorkey
-nursekey
-patientkey
-govkey
-superkey
+
