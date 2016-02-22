@@ -24,7 +24,7 @@ public class testFileIO {
 		
 		/** describe expected output
 		*/
-		am.login("fruktegott", "bananer");
+		am.login("per", "Er9Raa");
 		String recs = am.readAllRecords();
 		System.out.println(recs);
 		

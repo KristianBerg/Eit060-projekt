@@ -49,6 +49,7 @@ public class AccessManager {
 				s += r.idString() + "\n";
 			}
 		}
+		s+="end";
 		return s;
 	}
 
