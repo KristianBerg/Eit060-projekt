@@ -3,9 +3,11 @@ package Server;
 
 public class Patient implements User{
 	private String name;
+	private String password;
 	
-	public Patient(String name){ //Removed division from patient, doesn't make sense for them to have one
+	public Patient(String name, String password){ //Removed division from patient, doesn't make sense for them to have one
 		this.name = name;
+		this.password = password;
 				
 	}
 

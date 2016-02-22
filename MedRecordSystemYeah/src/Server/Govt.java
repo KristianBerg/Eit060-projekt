@@ -1,13 +1,13 @@
 package Server;
 
-public class Govt implements User{
+public class Govt implements User {
 	private String name;
 	private String password;
 
-	public Govt(String name){
+	public Govt(String name, String password) {
 		this.name = name;
+		this.password = password;
 	}
-	
 
 	public String toString() {
 		return "u g " + name;
@@ -17,7 +17,8 @@ public class Govt implements User{
 	public String getName() {
 		return name;
 	}
-	public String getDivision(){
+
+	public String getDivision() {
 		return null;
 	}
 
@@ -28,7 +29,7 @@ public class Govt implements User{
 
 	@Override
 	public boolean hasAccess(String accessType, MedRecord mr) {
-		if(accessType.equals("read") || accessType.equals("delete")){
+		if (accessType.equals("read") || accessType.equals("delete")) {
 			return true;
 		}
 		return false;

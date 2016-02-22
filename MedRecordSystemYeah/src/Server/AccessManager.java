@@ -91,8 +91,8 @@ public class AccessManager {
 	 * exist, creates new patient.
 	 * 
 	 * @param String
-	 *            array in the format [doctorName, doctorDivision, nurseName,
-	 *            nurseDivision, patientName, division]
+	 *            array in the format [doctorName, nurseName,
+	 *            patientName, division, password]
 	 */
 	public boolean createRecord(String[] userData) {
 		if (userData.length != 5)
@@ -114,7 +114,7 @@ public class AccessManager {
 			} 
 		}
 		if(!patientRegistered){
-			patient = new Patient(userData[4]);
+			patient = new Patient(userData[2],userData[4]);
 			users.add(patient);
 		}
 		if (doctor != null && nurse != null) {
@@ -183,16 +183,16 @@ public class AccessManager {
 			if (userOrRecord == 'u') { // read user
 				switch (scan.next().charAt(0)) {
 				case 'd':
-					users.add(new Doctor(scan.next(), scan.next()));
+					users.add(new Doctor(scan.next(), scan.next(),scan.next()));
 					break;
 				case 'n':
-					users.add(new Nurse(scan.next(), scan.next()));
+					users.add(new Nurse(scan.next(), scan.next(),scan.next()));
 					break;
 				case 'p':
-					users.add(new Patient(scan.next()));
+					users.add(new Patient(scan.next(),scan.next()));
 					break;
 				case 'g':
-					users.add(new Govt(scan.next()));
+					users.add(new Govt(scan.next(),scan.next()));
 					break;
 				default:
 					System.out.println("not a valid user character");

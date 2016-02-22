@@ -6,22 +6,24 @@ public class Doctor implements User {
 	private String division;
 	private String name;
 	private String password;
-	
-	public Doctor(String name, String division) {
+
+	public Doctor(String name, String division, String password) {
 		this.division = division;
 		this.name = name;
+		this.password = password;
 	}
 
 	public String toString() {
-		return "u d " + this.name +" " + this.division;
-				 
+		return "u d " + this.name + " " + this.division;
+
 	}
 
 	@Override
 	public String getName() {
 		return name;
 	}
-	public String getDivision(){
+
+	public String getDivision() {
 		return division;
 	}
 
@@ -33,14 +35,16 @@ public class Doctor implements User {
 
 	@Override
 	public boolean hasAccess(String accessType, MedRecord mr) {
-		if(accessType.equals("write")){
-		if(mr.getDoctor()==this){
-			return true;
-		}}
-		if(accessType=="read"){
-			if(this.equals("d")){
+		if (accessType.equals("write")) {
+			if (mr.getDoctor() == this) {
 				return true;
-			}}
+			}
+		}
+		if (accessType == "read") {
+			if (this.equals("d")) {
+				return true;
+			}
+		}
 		return false;
 	}
 }
