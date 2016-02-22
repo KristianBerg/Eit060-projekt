@@ -1,13 +1,8 @@
 package Server;
 
-import java.util.ArrayList;
 
 public class Patient implements User{
 	private String name;
-	
-	public ArrayList<MedRecord> getRecords() { 
-		return null;
-	}
 	
 	public Patient(String name){ //Removed division from patient, doesn't make sense for them to have one
 		this.name = name;
@@ -34,7 +29,11 @@ public class Patient implements User{
 
 	@Override
 	public boolean hasAccess(String accessType, MedRecord mr) {
-		// TODO Auto-generated method stub
+		if(accessType.equals("read")){
+			if(mr.getPatient()==this){
+				return true;
+			}
+		}
 		return false;
 	}
 

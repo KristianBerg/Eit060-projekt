@@ -1,11 +1,9 @@
 package Server;
 
-import java.util.ArrayList;
 
 public class Nurse implements User {
 	private String division;
 	private String name;
-	private ArrayList<MedRecord> medRecords;
 	private String password;
 	
 
@@ -14,13 +12,6 @@ public class Nurse implements User {
 		this.name = name;
 		this.division = division;
 	}
-	
-	
-	
-	public ArrayList<MedRecord> getRecords() {
-		return medRecords;
-	}
-
 
 
 	public String toString() {
