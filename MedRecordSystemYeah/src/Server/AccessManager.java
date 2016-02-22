@@ -19,8 +19,8 @@ public class AccessManager {
 		readFile(filename);
 		this.filename = filename;
 	}
-	
-	public ArrayList<User> getUsers(){
+
+	public ArrayList<User> getUsers() {
 		return users;
 	}
 
@@ -29,7 +29,7 @@ public class AccessManager {
 			if (u.getName().equals(username)) {
 				if (u.getPass().equals(pass)) {
 					currentUser = u;
-					auditor.log("user " + u.getName() + " logged in");
+//					auditor.log("user " + u.getName() + " logged in");
 					System.out.println(currentUser);
 					return true;
 				}
@@ -45,13 +45,15 @@ public class AccessManager {
 
 	// TODO All 4 record reading and modifying methods
 	public String readAllRecords() {
-		auditor.log("user " + currentUser.getName() + " asked for reading access");
+//		auditor.log("user " + currentUser.getName() + " asked for reading access");
 		String s = "";
-		for (MedRecord r : records){
-			if (currentUser.hasAccess("read", r)){
+		for (MedRecord r : records) {
+			if (currentUser.hasAccess("read", r)) {
 				s += r.idString() + "\n";
 			}
 		}
+		s += "end";
+
 		return s;
 	}
 
@@ -61,7 +63,7 @@ public class AccessManager {
 	 * @value 0 doctor, 1 nurse, 2 patient 3 division
 	 */
 	public boolean modifyRecord(int id, int field, String name) {
-		auditor.log("user " + currentUser.getName() + " asked for writing access");
+//		auditor.log("user " + currentUser.getName() + " asked for writing access");
 		for (int i = 0; i < records.size(); i++) {
 			if (records.get(i).getId() == id) {
 				if (currentUser.hasAccess("write", records.get(i))) {
@@ -82,78 +84,70 @@ public class AccessManager {
 						return false;
 					}
 
-				}
-				else {
+				} else {
 				}
 			}
 		}
 		return false;
 	}
 
+    public boolean deleteRecord(int id) {
+        for (int i = 0; i < records.size(); i++) {
+            if (records.get(i).getId() == id) {
+                if (currentUser.hasAccess("delete", records.get(i))) {
+                    records.remove(i);
+                    return true;
+                }
+            }
+        }
+ 
+        return false;
+    }
+	
 	/**
 	 * @param id
 	 *            indicates which record to delete
 	 * @return true if successful
 	 */
-	public boolean deleteRecord(int id) {
-		for (int i = 0; i < records.size(); i++) {
-			if (records.get(i).getId() == id) {
-				if (currentUser.hasAccess("delete", records.get(i))) {
-					MedRecord temp = records.get(i);
-					records.remove(i);
-					auditor.log("user " + currentUser.getName() + " deleted a record of patient" + temp.getPatient());
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Ensures that the doctor and nurse are registered as users. If patient is
-	 * registered, adds record with corresponding patient. If patient does not
-	 * exist, creates new patient.
-	 * 
-	 * @param String
-	 *            array in the format [doctorName, nurseName, patientName,
-	 *            division, password]
-	 */
 	public boolean createRecord(String[] userData) {
-		if (userData.length != 5)
-			return false;
-		Doctor doctor = null;
-		Nurse nurse = null;
-		Patient patient = null;
-		boolean patientRegistered = false;
-		for (User u : users) {
-			if (u.getName().equals(userData[0])) {
-				doctor = (Doctor) u;
-				System.out.println("found doctor");
-			}
-			if (u.getName().equals(userData[1])) {
-				nurse = (Nurse) u;
-			}
-			if (u.getName().equals(userData[2])) {
-				patient = (Patient) u;
-				patientRegistered = true;
-			}
-		}
-		if (!patientRegistered) {
-			patient = new Patient(userData[2], userData[4]);
-			users.add(patient);
-			
-			
-			
-			
-		}
-		if (doctor != null && nurse != null) {
-			System.out.println("hej");
-			records.add(new MedRecord(doctor, nurse, patient, userData[3]));
-		}
-
-		return false;
-	}
+        //Input has to be 4 or 5 words to be valid.
+        if (userData.length < 4 || userData.length > 5)
+            return false;
+        boolean patientRegistered = false;
+        Doctor doctor = null;
+        Nurse nurse = null;
+        Patient patient = null;
+        //Checks if doctor, nurse and patient exists.
+        for (User u : users) {
+            if (u.getName().equals(userData[0])) {
+                doctor = (Doctor) u;
+            }
+            if (u.getName().equals(userData[1])) {
+                nurse = (Nurse) u;
+            }
+            if (u.getName().equals(userData[2])) {
+                patient = (Patient) u;
+                patientRegistered = true;
+            }
+        }
+        if (!patientRegistered && userData.length == 5) {
+            //Patient not registered, creating new patient
+            patient = new Patient(userData[2], userData[4]);
+            users.add(patient);
+        } else if (!patientRegistered){
+            //Patient not registered and no password for new patient in input
+            System.out.println("wtf");
+            return false;
+        }
+        if (doctor != null && nurse != null) {
+            //Checks if the current user matches the doctor name in userData
+//          if (currentUser.getName().equals(userData[0])) {
+                records.add(new MedRecord(doctor, nurse, patient, userData[3]));
+//          }
+        }
+ 
+        return false;
+    }
 
 	public void saveToFile() {
 		PrintWriter pw = null;
@@ -166,16 +160,16 @@ public class AccessManager {
 		pw.println(MedRecord.recordNumber);
 		pw.println("c users");
 		for (User u : users) {
-			//System.out.println(u.toString());
+			// System.out.println(u.toString());
 			pw.println(u.toString());
 		}
 		pw.println("c records");
 		for (MedRecord mr : records) {
-			//System.out.println(mr.toString());
+			// System.out.println(mr.toString());
 			pw.println(mr.toString());
 		}
 		pw.close();
-		auditor.log("user " + currentUser.getName() + " saved changes to file");
+//		auditor.log("user " + currentUser.getName() + " saved changes to file");
 
 	}
 
