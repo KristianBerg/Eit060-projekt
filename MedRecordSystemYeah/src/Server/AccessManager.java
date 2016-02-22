@@ -75,7 +75,6 @@ public class AccessManager {
 
 				}
 				else {
-					System.out.println("test");
 				}
 			}
 		}
@@ -209,6 +208,7 @@ public class AccessManager {
 					break;
 				case 's':
 					users.add(new SuperDuperUser(scan.next()));
+					break;
 				default:
 					System.out.println("not a valid user character");
 				}

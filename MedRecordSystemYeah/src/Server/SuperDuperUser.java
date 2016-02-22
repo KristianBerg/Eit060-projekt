@@ -16,7 +16,7 @@ public class SuperDuperUser implements User{
 	}
 
 	public String getPass() {
-		return "bananer";
+		return "Oij97a";
 	}
 
 	public boolean hasAccess(String accessType, MedRecord mr) {
