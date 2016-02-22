@@ -11,6 +11,7 @@ public class AccessManager {
 	private ArrayList<User> users;
 	private User currentUser;
 	String filename;
+	private Auditor auditor;
 
 	public AccessManager(String filename) {
 		records = new ArrayList<MedRecord>();
@@ -28,6 +29,7 @@ public class AccessManager {
 			if (u.getName().equals(username)) {
 				if (u.getPass().equals(pass)) {
 					currentUser = u;
+					auditor.log("user " + u.getName() + " logged in");
 					System.out.println(currentUser);
 					return true;
 				}
@@ -43,13 +45,13 @@ public class AccessManager {
 
 	// TODO All 4 record reading and modifying methods
 	public String readAllRecords() {
+		auditor.log("user " + currentUser.getName() + " asked for reading access");
 		String s = "";
 		for (MedRecord r : records){
 			if (currentUser.hasAccess("read", r)){
 				s += r.idString() + "\n";
 			}
 		}
-		s+="end";
 		return s;
 	}
 
@@ -59,6 +61,7 @@ public class AccessManager {
 	 * @value 0 doctor, 1 nurse, 2 patient 3 division
 	 */
 	public boolean modifyRecord(int id, int field, String name) {
+		auditor.log("user " + currentUser.getName() + " asked for writing access");
 		for (int i = 0; i < records.size(); i++) {
 			if (records.get(i).getId() == id) {
 				if (currentUser.hasAccess("write", records.get(i))) {
@@ -96,7 +99,9 @@ public class AccessManager {
 		for (int i = 0; i < records.size(); i++) {
 			if (records.get(i).getId() == id) {
 				if (currentUser.hasAccess("delete", records.get(i))) {
+					MedRecord temp = records.get(i);
 					records.remove(i);
+					auditor.log("user " + currentUser.getName() + " deleted a record of patient" + temp.getPatient());
 					return true;
 				}
 			}
@@ -115,8 +120,8 @@ public class AccessManager {
 	 *            division, password]
 	 */
 	public boolean createRecord(String[] userData) {
-//		if (userData.length != 5)
-//			return false;
+		if (userData.length != 5)
+			return false;
 		Doctor doctor = null;
 		Nurse nurse = null;
 		Patient patient = null;
@@ -137,6 +142,10 @@ public class AccessManager {
 		if (!patientRegistered) {
 			patient = new Patient(userData[2], userData[4]);
 			users.add(patient);
+			
+			
+			
+			
 		}
 		if (doctor != null && nurse != null) {
 			System.out.println("hej");
@@ -166,6 +175,8 @@ public class AccessManager {
 			pw.println(mr.toString());
 		}
 		pw.close();
+		auditor.log("user " + currentUser.getName() + " saved changes to file");
+
 	}
 
 	/**
