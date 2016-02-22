@@ -175,7 +175,7 @@ public class AccessManager {
 		scan.nextLine(); // TODO assumes first line of input
 							// is comment, not pretty but
 							// works
-		MedRecord.setRecordNumber(scan.nextInt());
+		//MedRecord.setRecordNumber(scan.nextInt());
 		scan.nextLine();
 		int currentRow = 3;
 		while (scan.hasNext()) {
