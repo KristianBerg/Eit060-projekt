@@ -12,7 +12,7 @@ public class testFileIO {
 		AccessManager am = new AccessManager("records.txt");
 		am.dumpUsersAndRecords();
 		am.modifyRecord(0, 0, "gun");
-		System.out.println(am.readAllRecords() + "\n");
+		//System.out.println(am.readAllRecords() + "\n");
 		am.saveToFile();
 	
 	}
