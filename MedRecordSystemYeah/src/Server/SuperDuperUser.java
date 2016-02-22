@@ -1,10 +1,12 @@
 package Server;
 
 public class SuperDuperUser implements User{
-	String name; 
+	String name;
+	String password;
 	
-	public SuperDuperUser(String name){
+	public SuperDuperUser(String name, String password){
 		this.name = name;
+		this.password = password;
 	}
 
 	public String getName() {
@@ -16,7 +18,7 @@ public class SuperDuperUser implements User{
 	}
 
 	public String getPass() {
-		return "Oij97a";
+		return password;
 	}
 
 	public boolean hasAccess(String accessType, MedRecord mr) {
@@ -24,6 +26,6 @@ public class SuperDuperUser implements User{
 	}
 	
 	public String toString(){
-		return "u s " + name;
+		return "u s " + name + " " + password;
 	}
 }

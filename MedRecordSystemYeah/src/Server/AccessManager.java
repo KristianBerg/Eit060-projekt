@@ -149,12 +149,12 @@ public class AccessManager {
 		pw.println(MedRecord.recordNumber);
 		pw.println("c users");
 		for (User u : users) {
-			System.out.println(u.toString());
+			//System.out.println(u.toString());
 			pw.println(u.toString());
 		}
 		pw.println("c records");
 		for (MedRecord mr : records) {
-			System.out.println(mr.toString());
+			//System.out.println(mr.toString());
 			pw.println(mr.toString());
 		}
 		pw.close();
@@ -207,7 +207,7 @@ public class AccessManager {
 					users.add(new Govt(scan.next(), scan.next()));
 					break;
 				case 's':
-					users.add(new SuperDuperUser(scan.next()));
+					users.add(new SuperDuperUser(scan.next(), scan.next()));
 					break;
 				default:
 					System.out.println("not a valid user character");
