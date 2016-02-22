@@ -95,40 +95,32 @@ public class AccessManager {
 	 *            nurseDivision, patientName, division]
 	 */
 	public boolean createRecord(String[] userData) {
-		if (userData.length != 6)
+		if (userData.length != 5)
 			return false;
 		Doctor doctor = null;
 		Nurse nurse = null;
-		Patient patient = new Patient(userData[4]); // TODO what if the patient
-													// already exists? also new
-													// patients should be added
-													// to users
+		Patient patient = null;
+		boolean patientRegistered = false;
 		for (User u : users) {
-			if (u.getName() == userData[0] && u.getDivision() == userData[1]) { // TODO
-																				// not
-																				// going
-																				// to
-																				// work,
-																				// use
-																				// .equals
-																				// for
-																				// String
-																				// and
-																				// not
-																				// ==
+			if (u.getName().equals(userData[0]) && u.getDivision().equals(userData[1])) { 
 				doctor = (Doctor) u;
 			}
-			if (u.getName() == userData[2] && u.getDivision() == userData[3]) {
+			if (u.getName().equals(userData[2]) && u.getDivision().equals(userData[3])) {
 				nurse = (Nurse) u;
 			}
-			if (u.getName() == userData[4] && u.getDivision() == userData[5]) {
+			if (u.getName().equals(userData[4])) {
 				patient = (Patient) u;
-			}
+				patientRegistered = true;
+			} 
+		}
+		if(!patientRegistered){
+			patient = new Patient(userData[4]);
+			users.add(patient);
 		}
 		if (doctor != null && nurse != null) {
 			records.add(new MedRecord(doctor, nurse, patient, userData[5]));
 		}
-		;
+		
 		return false;
 	}
 
