@@ -58,21 +58,24 @@ public class AccessManager {
 	public boolean modifyRecord(int id, int field, String name) {
 		for (int i = 0; i < records.size(); i++) {
 			if (records.get(i).getId() == id) {
-				switch (field) {
-				case 0:
-					records.get(i).setDoctor((Doctor) findByName(name));
-					return true;
-				case 1:
-					records.get(i).setNurse((Nurse) findByName(name));
-					return true;
-				case 2:
-					records.get(i).setPatient((Patient) findByName(name));
-					return true;
-				case 3:
-					records.get(i).setDivision(name);
-					return true;
-				default:
-					return false;
+				if (currentUser.hasAccess("write", records.get(i))) {
+					switch (field) {
+					case 0:
+						records.get(i).setDoctor((Doctor) findByName(name));
+						return true;
+					case 1:
+						records.get(i).setNurse((Nurse) findByName(name));
+						return true;
+					case 2:
+						records.get(i).setPatient((Patient) findByName(name));
+						return true;
+					case 3:
+						records.get(i).setDivision(name);
+						return true;
+					default:
+						return false;
+					}
+
 				}
 			}
 		}
@@ -87,10 +90,13 @@ public class AccessManager {
 	public boolean deleteRecord(int id) {
 		for (int i = 0; i < records.size(); i++) {
 			if (records.get(i).getId() == id) {
-				records.remove(i);
-				return true;
+				if (currentUser.hasAccess("delete", records.get(i))) {
+					records.remove(i);
+					return true;
+				}
 			}
 		}
+
 		return false;
 	}
 
@@ -100,8 +106,8 @@ public class AccessManager {
 	 * exist, creates new patient.
 	 * 
 	 * @param String
-	 *            array in the format [doctorName, nurseName,
-	 *            patientName, division, password]
+	 *            array in the format [doctorName, nurseName, patientName,
+	 *            division, password]
 	 */
 	public boolean createRecord(String[] userData) {
 		if (userData.length != 5)
@@ -111,7 +117,7 @@ public class AccessManager {
 		Patient patient = null;
 		boolean patientRegistered = false;
 		for (User u : users) {
-			if (u.getName().equals(userData[0]) && u.getDivision().equals(userData[1])) { 
+			if (u.getName().equals(userData[0]) && u.getDivision().equals(userData[1])) {
 				doctor = (Doctor) u;
 			}
 			if (u.getName().equals(userData[2]) && u.getDivision().equals(userData[3])) {
@@ -120,16 +126,16 @@ public class AccessManager {
 			if (u.getName().equals(userData[4])) {
 				patient = (Patient) u;
 				patientRegistered = true;
-			} 
+			}
 		}
-		if(!patientRegistered){
-			patient = new Patient(userData[2],userData[4]);
+		if (!patientRegistered) {
+			patient = new Patient(userData[2], userData[4]);
 			users.add(patient);
 		}
 		if (doctor != null && nurse != null) {
 			records.add(new MedRecord(doctor, nurse, patient, userData[5]));
 		}
-		
+
 		return false;
 	}
 
@@ -161,17 +167,13 @@ public class AccessManager {
 	public void dumpUsersAndRecords() {
 		System.out.println("Users\n");
 		for (User u : users) {
-			System.out
-					.println("Role: " + u.getClass().getSimpleName()
-							+ " Name: " + u.getName() + " Division: "
-							+ u.getDivision());
+			System.out.println("Role: " + u.getClass().getSimpleName() + " Name: " + u.getName() + " Division: "
+					+ u.getDivision());
 		}
 		System.out.println("\nRecords\n");
 		for (MedRecord mr : records) {
-			System.out.println("Doctor: " + mr.getDoctor().getName()
-					+ " Nurse: " + mr.getNurse().getName() + " Patient: "
-					+ mr.getPatient().getName() + " Division: "
-					+ mr.getDivision());
+			System.out.println("Doctor: " + mr.getDoctor().getName() + " Nurse: " + mr.getNurse().getName()
+					+ " Patient: " + mr.getPatient().getName() + " Division: " + mr.getDivision());
 		}
 		System.out.println("\n");
 	}
@@ -186,7 +188,7 @@ public class AccessManager {
 		scan.nextLine(); // TODO assumes first line of input
 							// is comment, not pretty but
 							// works
-		//MedRecord.setRecordNumber(scan.nextInt());
+		// MedRecord.setRecordNumber(scan.nextInt());
 		scan.nextLine();
 		int currentRow = 3;
 		while (scan.hasNext()) {
@@ -194,16 +196,16 @@ public class AccessManager {
 			if (userOrRecord == 'u') { // read user
 				switch (scan.next().charAt(0)) {
 				case 'd':
-					users.add(new Doctor(scan.next(), scan.next(),scan.next()));
+					users.add(new Doctor(scan.next(), scan.next(), scan.next()));
 					break;
 				case 'n':
-					users.add(new Nurse(scan.next(), scan.next(),scan.next()));
+					users.add(new Nurse(scan.next(), scan.next(), scan.next()));
 					break;
 				case 'p':
-					users.add(new Patient(scan.next(),scan.next()));
+					users.add(new Patient(scan.next(), scan.next()));
 					break;
 				case 'g':
-					users.add(new Govt(scan.next(),scan.next()));
+					users.add(new Govt(scan.next(), scan.next()));
 					break;
 				default:
 					System.out.println("not a valid user character");
@@ -220,29 +222,31 @@ public class AccessManager {
 				}
 				records.add(new MedRecord(d, n, p, scan.next()));
 			} else if (userOrRecord == 'c') { // for comments
-				//do nothing here
+				// do nothing here
 			} else {
-				System.out
-						.println("First character in each line should be c, u or r");
+				System.out.println("First character in each line should be c, u or r");
 			}
 			currentRow++;
 			scan.nextLine();
 		}
 		scan.close();
 	}
-	
+
 	/**
-	 * finds user matching class type of user argument and name and puts it into user argument
+	 * finds user matching class type of user argument and name and puts it into
+	 * user argument
+	 * 
 	 * @param name
 	 * @param user
 	 * @return
 	 */
-	private User findByName(String name){
-		for(User u: users){
-			if(u.getName().equals(name)){
+	private User findByName(String name) {
+		for (User u : users) {
+			if (u.getName().equals(name)) {
 				return u;
 			}
 		}
 		return null;
 	}
+
 }
