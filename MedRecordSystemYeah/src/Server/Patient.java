@@ -14,6 +14,9 @@ public class Patient implements User{
 	public String toString() {
 		return "u p " + name + " " + password;
 	}
+	 public String printString(){
+		 return " u p " + name;
+	 }
 	
 	public String getName() {
 		return name;

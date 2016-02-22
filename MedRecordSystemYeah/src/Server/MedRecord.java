@@ -80,4 +80,8 @@ public class MedRecord {
 	public String toString() {
 		return "r " + doctor.getName() + " " + nurse.getName() + " " + patient.getName() + " " + division;
 	}
+	
+	public String idString() {
+		return recordId + " " + doctor.getName() + " " + nurse.getName() + " " + patient.getName() + " " + division;
+	}
 }
