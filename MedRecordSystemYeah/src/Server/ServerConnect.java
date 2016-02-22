@@ -70,36 +70,40 @@ public class ServerConnect {
 	 * "modify recordId field newData" delete: "delete recordId"
 	 */
 
-	private boolean parseCommand(String s, AccessManager am) {
-		am = this.am; //temporary. Depends on where method is moved
+	public boolean parseCommand(String s, AccessManager am) {
+		// am = this.am; //temporary. Depends on where method is moved
 		String delims = "[ ]+";
 		String[] tokens = s.split(delims);
 		if (tokens.equals(null))
 			return false;
 		switch (tokens[0]) {
 		case "read":
-			am.readAllRecords();
-			return true;
+			System.out.println("Reading records");
+			if (am.readAllRecords() != null) {
+				return true;
+			} else
+				break;
 		case "create":
+			System.out.println("creating record");
 			if (tokens.length == 5 || tokens.length == 6) {
 				String[] input = new String[tokens.length - 1];
 				for (int i = 0; i < input.length; i++) {
 					input[i] = tokens[i + 1];
 				}
-				am.createRecord(input);
-				return true;
+				return (am.createRecord(input));
 			} else {
 				System.out.println("the create command string must contain 5 or 6 words.");
 				break;
 			}
 		case "modify":
-			if(tokens.length == 4){
-			am.modifyRecord(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]), tokens[3]);
-			return true;
-			} break;
-		case "delete":
-			am.deleteRecord(Integer.parseInt(tokens[1]));
+			System.out.println("Modifying record");
+			if (tokens.length == 4) {
+				return (am.modifyRecord(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]), tokens[3]));
+			}
 			break;
+		case "delete":
+			System.out.println("Deleting record");
+			return (am.deleteRecord(Integer.parseInt(tokens[1])));
 		default:
 			System.out.println("invalid command");
 			break;
