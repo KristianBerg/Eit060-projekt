@@ -5,3 +5,4 @@ Implementera protokoll för hur kommandon från användaren ska användas för att an
 Lista ut hur exempelkoden från projekt 1 ska användas för att få ut en ObjectOut(In)putStream
 Skapa Keystores för ett par användare, åtminstone en per användartyp
 Lista ut hur Keystore input och lösenordet till detta ska implementeras
+Refaktorisera konstruktor för MedRecord till att ta User input istället för Doctor, Nurse och Patient
