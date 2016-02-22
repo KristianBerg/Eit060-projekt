@@ -115,20 +115,21 @@ public class AccessManager {
 	 *            division, password]
 	 */
 	public boolean createRecord(String[] userData) {
-		if (userData.length != 5)
-			return false;
+//		if (userData.length != 5)
+//			return false;
 		Doctor doctor = null;
 		Nurse nurse = null;
 		Patient patient = null;
 		boolean patientRegistered = false;
 		for (User u : users) {
-			if (u.getName().equals(userData[0]) && u.getDivision().equals(userData[1])) {
+			if (u.getName().equals(userData[0])) {
 				doctor = (Doctor) u;
+				System.out.println("found doctor");
 			}
-			if (u.getName().equals(userData[2]) && u.getDivision().equals(userData[3])) {
+			if (u.getName().equals(userData[1])) {
 				nurse = (Nurse) u;
 			}
-			if (u.getName().equals(userData[4])) {
+			if (u.getName().equals(userData[2])) {
 				patient = (Patient) u;
 				patientRegistered = true;
 			}
@@ -138,7 +139,8 @@ public class AccessManager {
 			users.add(patient);
 		}
 		if (doctor != null && nurse != null) {
-			records.add(new MedRecord(doctor, nurse, patient, userData[5]));
+			System.out.println("hej");
+			records.add(new MedRecord(doctor, nurse, patient, userData[3]));
 		}
 
 		return false;

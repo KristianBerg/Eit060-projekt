@@ -37,8 +37,10 @@ public class Nurse implements User {
 				return true;
 			}
 		}
-		if (accessType == "read") {
-			if (this.equals("d")) {
+		if (accessType.equals("read")) {
+			if (this.division.equals(mr.getDivision())) {
+				return true;
+			} else if (mr.getNurse() == this){
 				return true;
 			}
 		}

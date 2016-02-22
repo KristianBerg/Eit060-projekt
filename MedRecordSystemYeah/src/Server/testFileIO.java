@@ -12,18 +12,27 @@ public class testFileIO {
 	public testFileIO() {
 		
 		AccessManager am = new AccessManager("records.txt");
-		am.dumpUsersAndRecords();
+//		am.dumpUsersAndRecords();
 		//am.modifyRecord(0, 0, "arn");
 		//am.dumpUsersAndRecords();
 
 		//testDelete(am);
-		/** describe expected output
-		*/
 		
-		am.login("per", "Er9Raa");
+		/** creates record
+		*/
+		am.login("fruktegott", "bananer");
+	    String[] newRecord = new String[4];
+	    newRecord[0]="gun";
+	    newRecord[1]="per";
+	    newRecord[2]="ann";
+	    newRecord[3]="barn";
+//	    newRecord[4]="pA92we";
+	    am.createRecord(newRecord);
 		String recs = am.readAllRecords();
 		System.out.println(recs);
-		am.saveToFile();
+		
+//		am.login("per", "Er9Raa");
+//		am.saveToFile();
 	
 	}
 	
