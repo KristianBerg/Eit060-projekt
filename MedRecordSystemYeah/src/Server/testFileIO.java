@@ -9,9 +9,12 @@ public class testFileIO {
 	}
 
 	public testFileIO() {
+		
 		AccessManager am = new AccessManager("records.txt");
 		am.dumpUsersAndRecords();
-		am.modifyRecord(0, 0, "gun");
+		am.login("arn", "Ur1gHa");
+		am.modifyRecord(0, 0, "arn");
+		//am.login("arn", "Ur1gHa");
 		//System.out.println(am.readAllRecords() + "\n");
 		am.saveToFile();
 	

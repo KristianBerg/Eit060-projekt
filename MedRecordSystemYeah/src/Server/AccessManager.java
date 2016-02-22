@@ -37,13 +37,10 @@ public class AccessManager {
 	}
 
 	// TODO All 4 record reading and modifying methods
-	public String readAllRecords(User u) {
+	public String readAllRecords() {
 		String s = "";
-		if (u == null){
-			u = currentUser;
-		}
 		for (MedRecord r : records){
-			if (u.hasAccess("read", r)){
+			if (currentUser.hasAccess("read", r)){
 				s += r.idString() + "\n";
 			}
 		}
@@ -76,6 +73,9 @@ public class AccessManager {
 						return false;
 					}
 
+				}
+				else {
+					System.out.println("test");
 				}
 			}
 		}
