@@ -1,7 +1,5 @@
 package Server;
 
-import java.util.ArrayList;
-
 public class Govt implements User{
 	private String name;
 	private String password;
@@ -10,10 +8,6 @@ public class Govt implements User{
 		this.name = name;
 	}
 	
-	public ArrayList<MedRecord> getRecords() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public String toString() {
 		return "u g " + name;
