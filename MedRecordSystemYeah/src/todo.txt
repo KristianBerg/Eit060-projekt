@@ -1,5 +1,4 @@
 Pröva genom FileIO att modify, read, create, och delete record fungerar
-Implementera hasAccess för samtliga MedRecord-metoder
 Implementera lösenord för klasser, inkludera detta i FileIO och tilldela sådana i textfilen
 Implementera protokoll för hur kommandon från användaren ska användas för att anropa metoder i AccMngr
 Lista ut hur exempelkoden från projekt 1 ska användas för att få ut en ObjectOut(In)putStream

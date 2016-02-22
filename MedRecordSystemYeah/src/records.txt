@@ -1,7 +1,7 @@
 c number of records
 10
 c users
-u d arn barn
+u d arn barn Ur1gHa
 u d gun rtg
 u n per barn
 u n eva rtg

@@ -10,10 +10,31 @@ public class testFileIO {
 
 	public testFileIO() {
 		AccessManager am = new AccessManager("records.txt");
-		am.dumpUsersAndRecords();
-		am.modifyRecord(0, 0, "gun");
+		//am.dumpUsersAndRecords();
+		
+		/** Testing login on a doctor user and goverment user
+		 * tries deleteRecord() method on these users
+		 * writes out if managed
+		 * DO NOT save to file AFTER using this method
+		*/
+		//testDelete(am);
+
+		
+		/** describe expected output
+		*/
+		//am.modifyRecord(0, 0, "gun");
 		//System.out.println(am.readAllRecords() + "\n");
-		am.saveToFile();
+		//am.saveToFile();
 	
+	}
+	
+	private void testDelete(AccessManager am){
+		am.login("arn", "Ur1gHa");
+		boolean status = am.deleteRecord(0);
+		System.out.println(status);
+		am.logoff();
+		am.login("soc", "pA95we");
+		status = am.deleteRecord(0);	
+		System.out.println(status);	
 	}
 }

@@ -24,6 +24,7 @@ public class AccessManager {
 			if (u.getName().equals(username)) {
 				if (u.getPass().equals(pass)) {
 					currentUser = u;
+					System.out.println(currentUser);
 					return true;
 				}
 				break;
