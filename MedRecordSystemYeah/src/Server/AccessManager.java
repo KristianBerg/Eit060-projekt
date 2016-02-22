@@ -18,8 +18,8 @@ public class AccessManager {
 		readFile(filename);
 		this.filename = filename;
 	}
-	
-	public ArrayList<User> getUsers(){
+
+	public ArrayList<User> getUsers() {
 		return users;
 	}
 
@@ -44,12 +44,12 @@ public class AccessManager {
 	// TODO All 4 record reading and modifying methods
 	public String readAllRecords() {
 		String s = "";
-		for (MedRecord r : records){
-			if (currentUser.hasAccess("read", r)){
+		for (MedRecord r : records) {
+			if (currentUser.hasAccess("read", r)) {
 				s += r.idString() + "\n";
 			}
 		}
-		s+="end";
+		s += "end";
 		return s;
 	}
 
@@ -79,8 +79,7 @@ public class AccessManager {
 						return false;
 					}
 
-				}
-				else {
+				} else {
 				}
 			}
 		}
@@ -115,16 +114,17 @@ public class AccessManager {
 	 *            division, password]
 	 */
 	public boolean createRecord(String[] userData) {
-//		if (userData.length != 5)
-//			return false;
+		//Input has to be 4 or 5 words to be valid.
+		if (userData.length < 4 || userData.length > 5)
+			return false;
+		boolean patientRegistered = false;
 		Doctor doctor = null;
 		Nurse nurse = null;
 		Patient patient = null;
-		boolean patientRegistered = false;
+		//Checks if doctor, nurse and patient exists.
 		for (User u : users) {
 			if (u.getName().equals(userData[0])) {
 				doctor = (Doctor) u;
-				System.out.println("found doctor");
 			}
 			if (u.getName().equals(userData[1])) {
 				nurse = (Nurse) u;
@@ -134,13 +134,20 @@ public class AccessManager {
 				patientRegistered = true;
 			}
 		}
-		if (!patientRegistered) {
+		if (!patientRegistered && userData.length == 5) {
+			//Patient not registered, creating new patient
 			patient = new Patient(userData[2], userData[4]);
 			users.add(patient);
+		} else if (!patientRegistered){
+			//Patient not registered and no password for new patient in input
+			System.out.println("wtf");
+			return false;
 		}
 		if (doctor != null && nurse != null) {
-			System.out.println("hej");
-			records.add(new MedRecord(doctor, nurse, patient, userData[3]));
+			//Checks if the current user matches the doctor name in userData
+//			if (currentUser.getName().equals(userData[0])) {
+				records.add(new MedRecord(doctor, nurse, patient, userData[3]));
+//			}
 		}
 
 		return false;
@@ -157,12 +164,12 @@ public class AccessManager {
 		pw.println(MedRecord.recordNumber);
 		pw.println("c users");
 		for (User u : users) {
-			//System.out.println(u.toString());
+			// System.out.println(u.toString());
 			pw.println(u.toString());
 		}
 		pw.println("c records");
 		for (MedRecord mr : records) {
-			//System.out.println(mr.toString());
+			// System.out.println(mr.toString());
 			pw.println(mr.toString());
 		}
 		pw.close();
