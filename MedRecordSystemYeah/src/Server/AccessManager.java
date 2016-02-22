@@ -183,7 +183,7 @@ public class AccessManager {
 		scan.nextLine(); // TODO assumes first line of input
 							// is comment, not pretty but
 							// works
-		MedRecord.setRecordNumber(scan.nextInt()); //TODO this becomes incorrect
+		MedRecord.setRecordNumber(scan.nextInt());
 		scan.nextLine();
 		int currentRow = 3;
 		while (scan.hasNext()) {
@@ -212,17 +212,6 @@ public class AccessManager {
 				Doctor d = (Doctor) findByName(doctorName);
 				Nurse n = (Nurse) findByName(nurseName);
 				Patient p = (Patient) findByName(patientName);
-				/*for (User u : users) {
-					if (u.getName().equals(doctorName) && u instanceof Doctor) {
-						d = (Doctor) u;
-					} else if (u.getName().equals(nurseName)
-							&& u instanceof Nurse) {
-						n = (Nurse) u;
-					} else if (u.getName().equals(patientName)
-							&& u instanceof Patient) {
-						p = (Patient) u;
-					}
-				}*/
 				if (d == null || n == null || p == null) {
 					System.out.println("part of record set to null at row: " + currentRow);
 				}
@@ -234,7 +223,6 @@ public class AccessManager {
 						.println("First character in each line should be c, u or r");
 			}
 			currentRow++;
-			//System.out.println(currentRow);
 			scan.nextLine();
 		}
 		scan.close();

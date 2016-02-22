@@ -10,6 +10,7 @@ u p ann
 u p jeb
 u p isa
 u g soc
+u s fruktegott
 c records
 r arn per ann barn
 r gun eva jeb rtg
