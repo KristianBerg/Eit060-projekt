@@ -131,7 +131,7 @@ public class server implements Runnable {
 		switch (tokens[0]) {
 		case "login":
 			if(am.login(tokens[1], tokens[2])){
-				return "login successful!";
+				return "login successful! failed attempts: " + am.getFailedLoginAttempts();
 			} else {
 				return "login failed";
 			}

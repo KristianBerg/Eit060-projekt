@@ -12,6 +12,7 @@ public class AccessManager {
 	private User currentUser;
 	String filename;
 	private Auditor auditor;
+	private int failedLoginAttempts;
 
 	public AccessManager(String filename) {
 		records = new ArrayList<MedRecord>();
@@ -19,6 +20,7 @@ public class AccessManager {
 		readFile(filename);
 		this.filename = filename;
 		auditor = new Auditor("log.txt") ;
+		failedLoginAttempts = 0;
 	}
 
 	public ArrayList<User> getUsers() {
@@ -26,6 +28,9 @@ public class AccessManager {
 	}
 
 	public boolean login(String username, String pass) {
+		if(currentUser != null){
+			return false;
+		}
 		for (User u : users) {
 			if (u.getName().equals(username)) {
 				if (u.getPass().equals(pass)) {
@@ -38,13 +43,18 @@ public class AccessManager {
 				break;
 			}
 		}
+		failedLoginAttempts++;
 		return false;
 	}
 
 	public void logoff() {
 		auditor.log("user " + currentUser.getName() + " logged out");
 		currentUser = null;
-
+		failedLoginAttempts = 0;
+	}
+	
+	public int getFailedLoginAttempts(){
+		return failedLoginAttempts;
 	}
 
 	// TODO All 4 record reading and modifying methods
