@@ -18,6 +18,7 @@ public class AccessManager {
 		users = new ArrayList<User>();
 		readFile(filename);
 		this.filename = filename;
+		auditor = new Auditor("log.txt") ;
 	}
 
 	public ArrayList<User> getUsers() {
@@ -29,10 +30,11 @@ public class AccessManager {
 			if (u.getName().equals(username)) {
 				if (u.getPass().equals(pass)) {
 					currentUser = u;
-//					auditor.log("user " + u.getName() + " logged in");
+					auditor.log("user " + u.getName() + " logged in");
 					System.out.println(currentUser);
 					return true;
 				}
+				auditor.log("user " + u.getName() + " attempted to log in ");
 				break;
 			}
 		}
@@ -41,11 +43,13 @@ public class AccessManager {
 
 	public void logoff() {
 		currentUser = null;
+		auditor.log("user " + currentUser.getName() + " logged out");
+
 	}
 
 	// TODO All 4 record reading and modifying methods
 	public String readAllRecords() {
-//		auditor.log("user " + currentUser.getName() + " asked for reading access");
+		auditor.log("user " + currentUser.getName() + " asked for reading access");
 		String s = "";
 		for (MedRecord r : records) {
 			if (currentUser.hasAccess("read", r)) {
@@ -53,7 +57,7 @@ public class AccessManager {
 			}
 		}
 		s += "end\n";
-
+		auditor.log("user " + currentUser.getName() + " received reading access");
 		return s;
 	}
 
@@ -63,7 +67,7 @@ public class AccessManager {
 	 * @value 0 doctor, 1 nurse, 2 patient 3 division
 	 */
 	public boolean modifyRecord(int id, int field, String name) {
-//		auditor.log("user " + currentUser.getName() + " asked for writing access");
+		auditor.log("user " + currentUser.getName() + " asked for writing access to modify Record number " + id);
 		for (int i = 0; i < records.size(); i++) {
 			if (records.get(i).getId() == id) {
 				if (currentUser.hasAccess("write", records.get(i))) {
@@ -83,11 +87,13 @@ public class AccessManager {
 					default:
 						return false;
 					}
+					
 
-				} else {
-				}
+				} 
+				auditor.log("user " + currentUser.getName() + " modified record number " + id);
 			}
 		}
+		auditor.log("user " + currentUser.getName() + "got denied access to modify record number  " + id);
 		return false;
 	}
 
@@ -111,6 +117,11 @@ public class AccessManager {
 	 */
 	public boolean createRecord(String[] userData) {
         //Input has to be 4 or 5 words to be valid.
+		if(currentUser.getDivision().equals("-")){
+			System.out.println("access denied");
+			return false;
+		}
+		
         if (userData.length < 4 || userData.length > 5)
             return false;
         boolean patientRegistered = false;
