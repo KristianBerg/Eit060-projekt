@@ -28,8 +28,7 @@ public class Patient implements User{
 
 	@Override
 	public String getPass() {
-		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
 
 	@Override

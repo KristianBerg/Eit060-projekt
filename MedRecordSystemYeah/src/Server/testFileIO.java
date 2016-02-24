@@ -13,11 +13,13 @@ public class testFileIO {
 		AccessManager am = new AccessManager("records.txt");
 //		am.dumpUsersAndRecords();
 		
+//		am.login("ann", "pA91we");
+		
 		//use one method /time 
-		testCreateRecord(am);
+//		testCreateRecord(am);
 		testCreateRecordDoctor(am);
-		testCreateRecordPatient(am);
-		testDelete(am);
+//		testCreateRecordPatient(am);
+//		testDelete(am);
 
 		
 //		am.saveToFile();
