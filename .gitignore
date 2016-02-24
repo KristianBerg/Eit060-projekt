@@ -9,7 +9,7 @@
 *.pydevproject
 .project
 .metadata
-bin/**
+/bin/**
 tmp/**
 tmp/**/*
 *.tmp
@@ -30,4 +30,5 @@ local.properties
 /bin
 
 #Project specific
-*records.txt
+MedRecordSystemYeah/*records.txt
+MedRecordSystemYeah/log.txt

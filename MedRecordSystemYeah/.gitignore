@@ -1,2 +1,2 @@
-/bin/
-*records.txt
+bin/**
+log.txt

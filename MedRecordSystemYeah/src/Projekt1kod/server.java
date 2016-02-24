@@ -114,7 +114,7 @@ public class server implements Runnable {
                 ssf = ctx.getServerSocketFactory();
                 return ssf;
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         } else {
             return ServerSocketFactory.getDefault();

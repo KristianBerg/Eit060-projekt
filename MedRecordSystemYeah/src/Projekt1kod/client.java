@@ -15,8 +15,10 @@ import java.security.cert.*;
  * The application can be modified to connect to a server outside
  * the firewall by following SSLSocketClientWithTunneling.java.
  */
-public class client {
-
+public class client implements Runnable{
+	static BufferedReader in;
+	static String bufferedIn = "";
+	
     public static void main(String[] args) throws Exception {
         String host = null;
         int port = -1;
@@ -73,8 +75,10 @@ public class client {
 
             BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String msg;
+            client c = new client();
+            new Thread(c).start();
 			for (;;) {
                 System.out.print(">");
                 msg = read.readLine();
@@ -85,8 +89,8 @@ public class client {
                 out.println(msg);
                 out.flush();
                 System.out.println("done");
-
-                System.out.println("received '" + in.readLine() + "' from server\n");
+                Thread.sleep(500);
+                System.out.println("received: " + c.getBufferedString() + "from server\n");
             }
             in.close();
 			out.close();
@@ -96,5 +100,24 @@ public class client {
             e.printStackTrace();
         }
     }
-
+    
+    public void run(){
+    	while(true){
+    		try {
+    			String temp = in.readLine();
+    			if(temp == null){
+    				break;
+    			}
+				bufferedIn += temp + "\n";
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    	}
+    }
+    
+    public String getBufferedString(){
+    	String temp = bufferedIn;
+    	bufferedIn = "";
+    	return temp;
+    }
 }

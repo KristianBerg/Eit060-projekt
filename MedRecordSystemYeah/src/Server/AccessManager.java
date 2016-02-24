@@ -42,8 +42,8 @@ public class AccessManager {
 	}
 
 	public void logoff() {
-		currentUser = null;
 		auditor.log("user " + currentUser.getName() + " logged out");
+		currentUser = null;
 
 	}
 
@@ -56,7 +56,6 @@ public class AccessManager {
 				s += r.idString() + "\n";
 			}
 		}
-		s += "end\n";
 		auditor.log("user " + currentUser.getName() + " received reading access");
 		return s;
 	}
@@ -117,7 +116,7 @@ public class AccessManager {
 	 */
 	public boolean createRecord(String[] userData) {
         //Input has to be 4 or 5 words to be valid.
-		if(currentUser.getDivision().equals("-")){
+		if(!currentUser.hasAccess("create", null)){
 			System.out.println("access denied");
 			return false;
 		}

@@ -47,6 +47,9 @@ public class Doctor implements User {
 				return true;
 			}
 		}
+		if (accessType.equals("create")){
+			return true;
+		}
 		return false;
 	}
 }
