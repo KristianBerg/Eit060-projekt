@@ -52,7 +52,7 @@ public class AccessManager {
 				s += r.idString() + "\n";
 			}
 		}
-		s += "end";
+		s += "end\n";
 
 		return s;
 	}
