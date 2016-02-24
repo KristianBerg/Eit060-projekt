@@ -53,10 +53,10 @@ public class AccessManager {
 		String s = "";
 		for (MedRecord r : records) {
 			if (currentUser.hasAccess("read", r)) {
+				auditor.log("user " + currentUser.getName() + " received reading access for record " + r.getId());
 				s += r.idString() + "\n";
 			}
 		}
-		auditor.log("user " + currentUser.getName() + " received reading access");
 		return s;
 	}
 
@@ -70,6 +70,7 @@ public class AccessManager {
 		for (int i = 0; i < records.size(); i++) {
 			if (records.get(i).getId() == id) {
 				if (currentUser.hasAccess("write", records.get(i))) {
+					auditor.log("user " + currentUser.getName() + " modified record number " + id);
 					switch (field) {
 					case 0:
 						records.get(i).setDoctor((Doctor) findByName(name));
@@ -86,13 +87,10 @@ public class AccessManager {
 					default:
 						return false;
 					}
-					
-
 				} 
-				auditor.log("user " + currentUser.getName() + " modified record number " + id);
 			}
 		}
-		auditor.log("user " + currentUser.getName() + "got denied access to modify record number  " + id);
+		auditor.log("user " + currentUser.getName() + " was denied access to modify record number  " + id);
 		return false;
 	}
 
@@ -100,12 +98,13 @@ public class AccessManager {
         for (int i = 0; i < records.size(); i++) {
             if (records.get(i).getId() == id) {
                 if (currentUser.hasAccess("delete", records.get(i))) {
+                	auditor.log("user " + currentUser.getName() + " deleted record " + records.get(i).getId());
                     records.remove(i);
                     return true;
                 }
             }
         }
- 
+        auditor.log("user " + currentUser.getName() + " was denied access to delete record");
         return false;
     }
 	
@@ -117,6 +116,7 @@ public class AccessManager {
 	public boolean createRecord(String[] userData) {
         //Input has to be 4 or 5 words to be valid.
 		if(!currentUser.hasAccess("create", null)){
+			auditor.log("user " + currentUser.getName() + " was denied access to create new record");
 			System.out.println("access denied");
 			return false;
 		}
@@ -153,6 +153,7 @@ public class AccessManager {
             //Checks if the current user matches the doctor name in userData
 //          if (currentUser.getName().equals(userData[0])) {
                 records.add(new MedRecord(doctor, nurse, patient, userData[3]));
+                return true;
 //          }
         }
  
@@ -170,16 +171,14 @@ public class AccessManager {
 		pw.println(MedRecord.recordNumber);
 		pw.println("c users");
 		for (User u : users) {
-			// System.out.println(u.toString());
 			pw.println(u.toString());
 		}
 		pw.println("c records");
 		for (MedRecord mr : records) {
-			// System.out.println(mr.toString());
 			pw.println(mr.toString());
 		}
 		pw.close();
-//		auditor.log("user " + currentUser.getName() + " saved changes to file");
+		auditor.log("user " + currentUser.getName() + " saved changes to file");
 
 	}
 
