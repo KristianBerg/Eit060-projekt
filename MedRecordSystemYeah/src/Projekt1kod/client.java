@@ -80,7 +80,15 @@ public class client implements Runnable{
             client c = new client();
             new Thread(c).start();
 			for (;;) {
-                System.out.print(">");
+				System.out.println("Available commands:");
+				System.out.println("login [username] [password]");
+				System.out.println("logoff");
+				System.out.println("read");
+				System.out.println("modify [recordID] [field] [patient] (field is the field in the medical record to be changed. 0 for doctor, 1 for nurse, 2 for patient, 3 for division)");
+				System.out.println("delete [recordID]");
+				System.out.println("create [doctor] [nurse] [patient] [division] (password) (A password is required if the patient does not exist in the system)");
+				System.out.println("save");
+                System.out.print("\n>");
                 msg = read.readLine();
                 if (msg.equalsIgnoreCase("quit")) {
 				    break;
